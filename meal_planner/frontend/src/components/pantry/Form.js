@@ -21,6 +21,11 @@ export class Form extends Component {
     const { name, quantity, details } = this.state;
     const item = { name, quantity, details };
     this.props.addPantry(item);
+    this.setState({
+      name: "",
+      quantity: 0,
+      details: ""
+    });
   };
   render() {
     const { name, quantity, details } = this.state;
@@ -69,7 +74,4 @@ export class Form extends Component {
   }
 }
 
-export default connect(
-  null,
-  { addPantry }
-)(Form);
+export default connect(null, { addPantry })(Form);
