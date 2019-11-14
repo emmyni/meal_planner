@@ -4,8 +4,16 @@ from .serializers import PantrySerializer
 
 # Pantry Viewset
 class PantryViewSet(viewsets.ModelViewSet):
-    queryset = Pantry.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
+
     serializer_class = PantrySerializer
+
+    def get_queryset(self):
+        return self.request.user.items.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+    
+
