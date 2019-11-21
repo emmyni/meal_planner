@@ -7,6 +7,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGOUT_SUCCESS,
   REGISTER_FAIL,
   REGISTER_SUCCESS
 } from "./types";
@@ -97,7 +98,6 @@ export const logout = () => (dispatch, getState) => {
       });
     })
     .catch(err => {
-      console.log(err.response);
       dispatch(returnErrors(err.response.data, err.response.status));
     });
 };

@@ -1,12 +1,13 @@
 import axios from "axios";
 import { createMessage, returnErrors } from "./messages";
+import { tokenConfig } from "./auth";
 
 import { GET_PANTRY, DELETE_PANTRY, ADD_PANTRY, GET_ERRORS } from "./types.js";
 
 // GET PANTRY items
-export const getPantry = () => dispatch => {
+export const getPantry = () => (dispatch, getState) => {
   axios
-    .get("/api/pantry/")
+    .get("/api/pantry/", tokenConfig(getState))
     .then(res => {
       dispatch({
         type: GET_PANTRY,
@@ -19,9 +20,9 @@ export const getPantry = () => dispatch => {
 };
 
 // Delete Pantry item
-export const deletePantry = id => dispatch => {
+export const deletePantry = id => (dispatch, getState) => {
   axios
-    .delete(`/api/pantry/${id}/`)
+    .delete(`/api/pantry/${id}/`, tokenConfig(getState))
     .then(res => {
       dispatch(createMessage({ deleteItem: "Item Deleted" }));
       dispatch({
@@ -33,9 +34,9 @@ export const deletePantry = id => dispatch => {
 };
 
 // Add PANTRY items
-export const addPantry = item => dispatch => {
+export const addPantry = item => (dispatch, getState) => {
   axios
-    .post("/api/pantry/", item)
+    .post("/api/pantry/", item, tokenConfig(getState))
     .then(res => {
       dispatch(createMessage({ addItem: "Item Added" }));
       dispatch({
