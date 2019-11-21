@@ -17,11 +17,14 @@ export class Alerts extends Component {
         alert.error(`Quantity: ${error.msg.quantity.join()}`);
       if (error.msg.details)
         alert.error(`Details: ${error.msg.details.join()}`);
+      if (error.msg.non_field_errors)
+        alert.error(error.msg.non_field_errors.join());
     }
 
     if (message !== prevProps.message) {
       if (message.deleteItem) alert.success(message.deleteItem);
       if (message.addItem) alert.success(message.addItem);
+      if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
     }
   }
 
