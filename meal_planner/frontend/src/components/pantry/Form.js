@@ -7,16 +7,16 @@ export class Form extends Component {
   state = {
     name: "",
     quantity: 0,
-    details: ""
+    details: "",
   };
 
   static propTypes = {
-    addPantry: PropTypes.func.isRequired
+    addPantry: PropTypes.func.isRequired,
   };
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     const { name, quantity, details } = this.state;
     const item = { name, quantity, details };
@@ -24,7 +24,7 @@ export class Form extends Component {
     this.setState({
       name: "",
       quantity: 0,
-      details: ""
+      details: "",
     });
   };
   render() {
