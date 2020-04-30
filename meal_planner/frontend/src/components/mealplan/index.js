@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
+import Sample from "./Sample";
 
 export default function GeneratePlan() {
   return (
     <Fragment>
-      <h1>Meal Plan</h1>
+      <Sample />
     </Fragment>
   );
 }
