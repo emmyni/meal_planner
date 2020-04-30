@@ -4,18 +4,22 @@ import {
   HashRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 
 import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 
 import Header from "./layout/Header";
-import Pantry_Dashboard from "./pantry/Dashboard";
 import Alerts from "./layout/Alerts";
 import Login from "./accounts/login";
 import Register from "./accounts/register";
 import PrivateRoute from "./common/privateRoute";
+
+import Pantry_Dashboard from "./pantry/Dashboard";
+import ShoppingList_index from "./shoppinglist";
+import MealPlan_index from "./mealplan";
+import Recipes_index from "./recipes";
 
 import { Provider } from "react-redux";
 import store from "../store";
@@ -24,7 +28,7 @@ import { loadUser } from "../actions/auth";
 // Alert Options
 const alertOptions = {
   timeout: 3000,
-  position: "top center"
+  position: "top center",
 };
 
 class App extends Component {
@@ -42,9 +46,20 @@ class App extends Component {
               <Alerts />
               <div className="container">
                 <Switch>
-                  <PrivateRoute exact path="/" component={Pantry_Dashboard} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />
+                  <PrivateRoute exact path="/" component={Pantry_Dashboard} />
+                  <PrivateRoute
+                    exact
+                    path="/mealplan"
+                    component={MealPlan_index}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/shopping-list"
+                    component={ShoppingList_index}
+                  />
+                  <Route exact path="/recipes" component={Recipes_index} />
                 </Switch>
               </div>
             </Fragment>
