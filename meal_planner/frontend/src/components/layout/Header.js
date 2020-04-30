@@ -58,27 +58,27 @@ export class Header extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <span class="navbar-brand mb-0 h1">Meal Planner</span>
+            <span className="navbar-brand mb-0 h1">Meal Planner</span>
           </div>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#">
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <a className="nav-link" href="#">
                   Pantry
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#/shopping-list">
+              <li className="nav-item">
+                <a className="nav-link" href="#/shopping-list">
                   Shopping List
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#/recipes">
+              <li className="nav-item">
+                <a className="nav-link" href="#/recipes">
                   Find Recipes
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#/mealplan">
+              <li className="nav-item">
+                <a className="nav-link" href="#/mealplan">
                   Meal Plan
                 </a>
               </li>
