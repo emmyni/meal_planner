@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { addPantry } from "../../actions/pantry";
+import { generateMealplan } from "../../actions/mealplan";
 
 export class Form extends Component {
   state = {
@@ -12,7 +12,7 @@ export class Form extends Component {
   };
 
   static propTypes = {
-    addPantry: PropTypes.func.isRequired,
+    generateMealplan: PropTypes.func.isRequired,
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -20,8 +20,8 @@ export class Form extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { diet, exclude, targetCalories, timeFrame } = this.state;
-    const item = { diet, exclude, targetCalories, timeFrame };
-    this.props.addPantry(item);
+    const mealplanFormData = { diet, exclude, targetCalories, timeFrame };
+    this.props.generateMealplan(mealplanFormData);
     this.setState({
       diet: "",
       exclude: "",
@@ -86,4 +86,4 @@ export class Form extends Component {
   }
 }
 
-export default connect(null, { addPantry })(Form);
+export default connect(null, { generateMealplan })(Form);
