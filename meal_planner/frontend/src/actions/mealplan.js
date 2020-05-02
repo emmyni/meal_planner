@@ -1,13 +1,14 @@
 import axios from "axios";
 import { returnErrors } from "./messages";
-import { tokenConfig } from "./auth";
 
 import { GENERATE_MEALPLAN } from "./types.js";
 
 // generate mealplan
-export const generateMealplan = (mealplanFormData) => (dispatch, getState) => {
+export const generateMealplan = (mealplanData) => (dispatch, getState) => {
   axios
-    .get("/api/mealplan/", mealplanFormData, tokenConfig(getState))
+    .get("https://api.spoonacular.com/mealplanner/generate", {
+      params: mealplanData,
+    })
     .then((res) => {
       dispatch({
         type: GENERATE_MEALPLAN,

@@ -20,8 +20,14 @@ export class Form extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { diet, exclude, targetCalories, timeFrame } = this.state;
-    const mealplanFormData = { diet, exclude, targetCalories, timeFrame };
-    this.props.generateMealplan(mealplanFormData);
+    const mealplanData = {
+      diet,
+      exclude,
+      targetCalories,
+      timeFrame,
+      apiKey: process.env.REACT_APP_API_KEY,
+    };
+    this.props.generateMealplan(mealplanData);
     this.setState({
       diet: "",
       exclude: "",
