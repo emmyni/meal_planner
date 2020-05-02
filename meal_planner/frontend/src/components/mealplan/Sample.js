@@ -1,7 +1,12 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 export class Sample extends Component {
+  static propTypes = {
+    meals: PropTypes.array.isRequired,
+  };
+
   render() {
     return (
       <Fragment>
@@ -53,40 +58,26 @@ export class Sample extends Component {
         <br />
         <h5>Recipes</h5>
         <ul className="list-unstyled">
-          <li className="media">
-            <img src="..." className="mr-3" alt="..." />
-            <div className="media-body">
-              <h5 className="mt-0 mb-1">List-based media object</h5>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-              scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-              vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-              nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-          </li>
-          <li className="media my-4">
-            <img src="..." className="mr-3" alt="..." />
-            <div className="media-body">
-              <h5 className="mt-0 mb-1">List-based media object</h5>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-              scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-              vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-              nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-          </li>
-          <li className="media">
-            <img src="..." className="mr-3" alt="..." />
-            <div className="media-body">
-              <h5 className="mt-0 mb-1">List-based media object</h5>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-              scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-              vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-              nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-          </li>
+          {this.props.meals.map((meal) => (
+            <li className="media" key={meal.id}>
+              <img src="..." className="mr-3" alt="..." />
+              <div className="media-body">
+                <h5 className="mt-0 mb-1">{meal.title}</h5>
+                Ready in {meal.readyInMinutes} minutes. {meal.servings}{" "}
+                Servings.
+                <br />
+                <a href={meal.sourceUrl}>{meal.sourceUrl}</a>
+              </div>
+              <br />
+            </li>
+          ))}
         </ul>
       </Fragment>
     );
   }
 }
 
-export default connect(null, {})(Sample);
+const mapStateToProps = (state) => ({
+  meals: state.mealplan.mealplanData.meals,
+});
+export default connect(mapStateToProps, {})(Sample);

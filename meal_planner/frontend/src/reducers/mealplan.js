@@ -1,7 +1,8 @@
 import { GENERATE_MEALPLAN } from "../actions/types.js";
 
 const initialState = {
-  mealplanFormData: [],
+  mealplanData: [],
+  mealplanFetched: false,
 };
 
 export default function (state = initialState, action) {
@@ -9,7 +10,8 @@ export default function (state = initialState, action) {
     case GENERATE_MEALPLAN:
       return {
         ...state,
-        mealplanFormData: action.payload,
+        mealplanData: action.payload,
+        mealplanFetched: true,
       };
     default:
       return state;
