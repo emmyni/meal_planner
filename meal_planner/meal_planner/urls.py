@@ -6,5 +6,5 @@ urlpatterns = [
     path('', include('frontend.urls')),
     path('', include('pantry.urls')),
     path('', include('accounts.urls')),
-    path('', include('mealplan.urls'))
+    # path('', include('mealplan.urls'))
 ]
