@@ -78,6 +78,6 @@ export class Sample extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  meals: state.mealplan.mealplanData.meals,
+  meals: state.mealplan.mealplanShort.meals,
 });
 export default connect(mapStateToProps, {})(Sample);

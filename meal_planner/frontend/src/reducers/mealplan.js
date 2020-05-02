@@ -1,8 +1,12 @@
-import { GENERATE_MEALPLAN } from "../actions/types.js";
+import {
+  GENERATE_MEALPLAN,
+  GENERATE_MEALPLAN_EXTENDED,
+} from "../actions/types.js";
 
 const initialState = {
-  mealplanData: [],
+  mealplanShort: [],
   mealplanFetched: false,
+  mealplanExtended: [],
 };
 
 export default function (state = initialState, action) {
@@ -10,8 +14,13 @@ export default function (state = initialState, action) {
     case GENERATE_MEALPLAN:
       return {
         ...state,
-        mealplanData: action.payload,
+        mealplanShort: action.payload,
         mealplanFetched: true,
+      };
+    case GENERATE_MEALPLAN_EXTENDED:
+      return {
+        ...state,
+        mealplanExtended: action.payload,
       };
     default:
       return state;
