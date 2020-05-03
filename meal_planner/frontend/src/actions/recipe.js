@@ -4,12 +4,12 @@ import { tokenConfig } from "./auth";
 
 import { ADD_RECIPE, GET_ERRORS } from "./types.js";
 
-// Add PANTRY items
+// Add RECIPE
 export const addRecipe = (item) => (dispatch, getState) => {
   axios
     .post("/api/recipe/", item, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ recipeAdded: "Recipe Added" }));
+      dispatch(createMessage({ recipeAdded: "Recipe Saved" }));
       dispatch({
         type: ADD_RECIPE,
         payload: res.data,

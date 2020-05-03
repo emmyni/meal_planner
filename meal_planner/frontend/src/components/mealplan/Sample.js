@@ -14,14 +14,30 @@ export class Sample extends Component {
   saveRecipe = (e) => {
     e.preventDefault();
     const id = e.target.id;
-    // const { name, quantity, details } = this.props.meals;
-    // const item = { name, quantity, details };
-    // this.props.addRecipe(item);
-    // this.setState({
-    //   name: "",
-    //   quantity: 0,
-    //   details: "",
-    // });
+    let recipe_info = this.props.meals.find((meal) => {
+      return meal.id == id;
+    });
+
+    const {
+      title,
+      readyInMinutes,
+      servings,
+      sourceUrl,
+      image,
+      summary,
+    } = recipe_info;
+
+    const recipe = {
+      recipe_id: recipe_info.id,
+      title,
+      readyInMinutes,
+      servings,
+      sourceUrl,
+      image,
+      summary,
+    };
+
+    this.props.addRecipe(recipe);
   };
 
   render() {
@@ -60,7 +76,7 @@ export class Sample extends Component {
               aria-valuemax="100"
             >
               <strong>
-                <div style={{ color: "white", textAlign: "center" }}>
+                <div style={{ textAlign: "center" }}>
                   {name}: {this.props.nutrients[name]}
                 </div>
               </strong>

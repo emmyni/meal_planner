@@ -1,18 +1,18 @@
-from pantry.models import Pantry
+from recipes.models import Recipes
 from rest_framework import viewsets, permissions
-from .serializers import PantrySerializer
+from .serializers import RecipesSerializer
 
-# Pantry Viewset
+# Recipe Viewset
 
-class PantryViewSet(viewsets.ModelViewSet):
+class RecipesViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.IsAuthenticated
     ]
 
-    serializer_class = PantrySerializer
+    serializer_class = RecipesSerializer
 
     def get_queryset(self):
-        return self.request.user.pantry_items.all()
+        return self.request.user.recipes.all()
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

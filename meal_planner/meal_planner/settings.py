@@ -37,12 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pantry',
-    'mealplan',
     'rest_framework',
     'frontend',
     'knox', 
-    'accounts'
+    'accounts',
+    'pantry',
+    'mealplan',
+    'recipes',
 ]
 
 REST_FRAMEWORK = {
