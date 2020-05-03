@@ -16,16 +16,14 @@ export class Sample extends Component {
       this.props.nutrients.carbohydrates
     );
 
-    const nutrientPercents = {
-      protein: ((this.props.nutrients.protein / max) * 100).toString(),
-      fat: ((this.props.nutrients.fat / max) * 100).toString(),
-      carbohydrates: (
-        (this.props.nutrients.carbohydrates / max) *
-        100
-      ).toString(),
+    const getPercents = (name) => {
+      return name == "calories"
+        ? "100"
+        : ((this.props.nutrients[name] / max) * 100).toString();
     };
 
     const nutrientColours = {
+      calories: "bg-success",
       protein: "bg-info",
       fat: "bg-warning",
       carbohydrates: "bg-danger",
@@ -34,21 +32,21 @@ export class Sample extends Component {
     return (
       <Fragment>
         <h2>Meal Plan</h2>
-        <h5>Nutrients: {this.props.nutrients.calories} Calories</h5>
-        {Object.keys(nutrientPercents).map((name) => (
-          <div className="progress" key={name} style={{ marginBottom: "3%" }}>
+        <h5>Nutrients:</h5>
+        {Object.keys(this.props.nutrients).map((name) => (
+          <div className="progress" key={name} style={{ marginBottom: "1%" }}>
             <div
               className="progress-bar"
               className={nutrientColours[name]}
               role="progressbar"
-              style={{ width: nutrientPercents[name] + "%" }}
-              aria-valuenow={nutrientPercents[name]}
+              style={{ width: getPercents(name) + "%" }}
+              aria-valuenow={getPercents(name)}
               aria-valuemin="0"
               aria-valuemax="100"
             >
               <strong>
                 <div style={{ color: "white", textAlign: "center" }}>
-                  {name}: {this.props.nutrients[name]}g
+                  {name}: {this.props.nutrients[name]}
                 </div>
               </strong>
             </div>
