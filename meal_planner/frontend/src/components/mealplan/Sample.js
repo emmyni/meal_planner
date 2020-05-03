@@ -2,13 +2,15 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Markup } from "interweave";
-import { addRecipe } from "../../actions/recipe";
+import { addRecipe, getRecipe } from "../../actions/recipes";
 
 export class Sample extends Component {
   static propTypes = {
     meals: PropTypes.array.isRequired,
     nutrients: PropTypes.object.isRequired,
     addRecipe: PropTypes.func.isRequired,
+    getRecipe: PropTypes.func.isRequired,
+    recipes: PropTypes.array.isRequired,
   };
 
   saveRecipe = (e) => {
@@ -40,6 +42,10 @@ export class Sample extends Component {
     this.props.addRecipe(recipe);
   };
 
+  componentDidMount() {
+    this.props.getRecipe();
+  }
+
   render() {
     const max = Math.max(
       this.props.nutrients.protein,
@@ -58,6 +64,16 @@ export class Sample extends Component {
       protein: "bg-info",
       fat: "bg-warning",
       carbohydrates: "bg-danger",
+    };
+
+    const isSaved = (id) => {
+      return this.props.recipes.some((meal) => meal.id == id) ? true : false;
+    };
+
+    const getText = (id) => {
+      return this.props.recipes.some((meal) => meal.id == id)
+        ? "Saved"
+        : "Save";
     };
 
     return (
@@ -100,9 +116,13 @@ export class Sample extends Component {
                     type="button"
                     onClick={this.saveRecipe}
                     id={meal.id}
-                    className="btn btn-primary float-right"
+                    className={
+                      isSaved(meal.id)
+                        ? "btn float-right btn-info"
+                        : "btn float-right btn-primary"
+                    }
                   >
-                    Save
+                    {getText(meal.id)}
                   </button>
                 </h5>
                 Ready in {meal.readyInMinutes} minutes. {meal.servings}{" "}
@@ -120,6 +140,7 @@ export class Sample extends Component {
 const mapStateToProps = (state) => ({
   meals: state.mealplan.mealplanExtended,
   nutrients: state.mealplan.mealplanShort.nutrients,
+  recipes: state.recipes.myRecipes,
 });
 
-export default connect(mapStateToProps, { addRecipe })(Sample);
+export default connect(mapStateToProps, { addRecipe, getRecipe })(Sample);

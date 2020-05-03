@@ -1,7 +1,7 @@
 import { GET_RECIPE, DELETE_RECIPE, ADD_RECIPE } from "../actions/types.js";
 
 const initialState = {
-  recipes: [],
+  myRecipes: [],
 };
 
 export default function (state = initialState, action) {
@@ -9,17 +9,19 @@ export default function (state = initialState, action) {
     case GET_RECIPE:
       return {
         ...state,
-        recipes: action.payload,
+        myRecipes: action.payload,
       };
     case DELETE_RECIPE:
       return {
         ...state,
-        recipes: state.recipes.filter((recipe) => recipe.id !== action.payload),
+        myRecipes: state.recipes.filter(
+          (recipe) => recipe.id !== action.payload
+        ),
       };
     case ADD_RECIPE:
       return {
         ...state,
-        recipes: [...state.recipes, action.payload],
+        myRecipes: [...state.recipes, action.payload],
       };
     default:
       return state;

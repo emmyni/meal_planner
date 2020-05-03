@@ -4,7 +4,7 @@ import errors from "./errors";
 import messages from "./messages";
 import auth from "./auth";
 import mealplan from "./mealplan";
-import recipe from "./recipe";
+import recipes from "./recipes";
 
 export default combineReducers({
   pantry,
@@ -12,5 +12,5 @@ export default combineReducers({
   messages,
   auth,
   mealplan,
-  recipe,
+  recipes,
 });

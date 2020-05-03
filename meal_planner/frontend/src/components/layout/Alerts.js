@@ -23,9 +23,11 @@ export class Alerts extends Component {
     }
 
     if (message !== prevProps.message) {
+      if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
       if (message.deleteItem) alert.success(message.deleteItem);
       if (message.addItem) alert.success(message.addItem);
-      if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
+      if (message.recipeAdded) alert.success(message.recipeAdded);
+      if (message.recipeDeleted) alert.success(message.recipeDeleted);
     }
   }
 
