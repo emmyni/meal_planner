@@ -2,11 +2,26 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Markup } from "interweave";
+import { addRecipe } from "../../actions/recipe";
 
 export class Sample extends Component {
   static propTypes = {
     meals: PropTypes.array.isRequired,
     nutrients: PropTypes.object.isRequired,
+    addRecipe: PropTypes.func.isRequired,
+  };
+
+  saveRecipe = (e) => {
+    e.preventDefault();
+    const id = e.target.id;
+    // const { name, quantity, details } = this.props.meals;
+    // const item = { name, quantity, details };
+    // this.props.addRecipe(item);
+    // this.setState({
+    //   name: "",
+    //   quantity: 0,
+    //   details: "",
+    // });
   };
 
   render() {
@@ -65,6 +80,14 @@ export class Sample extends Component {
               <div className="media-body">
                 <h5 className="mt-0 mb-1">
                   <a href={meal.sourceUrl}>{meal.title}</a>
+                  <button
+                    type="button"
+                    onClick={this.saveRecipe}
+                    id={meal.id}
+                    className="btn btn-primary float-right"
+                  >
+                    Save
+                  </button>
                 </h5>
                 Ready in {meal.readyInMinutes} minutes. {meal.servings}{" "}
                 Servings.
@@ -82,4 +105,5 @@ const mapStateToProps = (state) => ({
   meals: state.mealplan.mealplanExtended,
   nutrients: state.mealplan.mealplanShort.nutrients,
 });
-export default connect(mapStateToProps, {})(Sample);
+
+export default connect(mapStateToProps, { addRecipe })(Sample);
