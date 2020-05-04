@@ -64,23 +64,39 @@ export class Header extends Component {
             <ul className="navbar-nav">
               <li className="nav-item">
                 <a className="nav-link" href="#">
-                  Pantry
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#/shopping-list">
-                  Shopping List
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#/recipes">
-                  Find Recipes
+                  Recipes
                 </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#/mealplan">
-                  Meal Plan
+                  Mealplans
                 </a>
+              </li>
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  data-toggle="dropdown"
+                  href="#"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  My Corner
+                </a>
+                <div className="dropdown-menu">
+                  <a className="dropdown-item" href="#">
+                    Pantry
+                  </a>
+                  <a className="dropdown-item" href="#/shopping-list">
+                    Shopping List
+                  </a>
+                  <a className="dropdown-item" href="#/recipes">
+                    Saved Recipes
+                  </a>
+                  <a className="dropdown-item" href="#/mealplan">
+                    Saved Mealplans
+                  </a>
+                </div>
               </li>
             </ul>
           </div>

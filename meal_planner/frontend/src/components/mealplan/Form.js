@@ -7,7 +7,7 @@ export class Form extends Component {
   state = {
     diet: "",
     exclude: "",
-    targetCalories: 0,
+    targetCalories: 2000,
     timeFrame: "day",
   };
 

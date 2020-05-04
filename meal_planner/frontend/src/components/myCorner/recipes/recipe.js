@@ -2,13 +2,14 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Markup } from "interweave";
-import { addRecipe, deleteRecipe } from "../../actions/recipes";
+import { addRecipe, deleteRecipe } from "../../../actions/recipes";
 
 export class Recipe extends Component {
   state = {
     isSaved: this.props.recipes.some((meal) => meal.id == this.props.meal.id)
       ? true
       : false,
+    isDB: this.props.meal.hasOwnProperty("recipe_id"),
   };
 
   static propTypes = {
@@ -40,10 +41,15 @@ export class Recipe extends Component {
   };
 
   deleteRecipe = () => {
-    const mealDB = this.props.recipes.find((obj) => {
-      return obj.recipe_id == this.props.meal.id;
-    });
-    this.props.deleteRecipe(mealDB.id);
+    // from database
+    if (this.state.isDB) this.props.deleteRecipe(this.props.meal.id);
+    // from spoonacular API
+    else {
+      const mealDB = this.props.recipes.find((obj) => {
+        return obj.recipe_id == this.props.meal.id;
+      });
+      this.props.deleteRecipe(mealDB.id);
+    }
   };
 
   toggleButton = (e) => {
@@ -73,11 +79,17 @@ export class Recipe extends Component {
                 onClick={this.toggleButton}
                 className={
                   this.state.isSaved
-                    ? "btn float-right btn-info"
+                    ? this.state.isDB
+                      ? "btn float-right btn-danger"
+                      : "btn float-right btn-info"
                     : "btn float-right btn-primary"
                 }
               >
-                {this.state.isSaved ? "Saved" : "Save"}
+                {this.state.isSaved
+                  ? this.state.isDB
+                    ? "Delete"
+                    : "Saved"
+                  : "Save"}
               </button>
             </h5>
             Ready in {meal.readyInMinutes} minutes. {meal.servings} Servings.

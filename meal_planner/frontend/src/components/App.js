@@ -16,10 +16,10 @@ import Login from "./accounts/login";
 import Register from "./accounts/register";
 import PrivateRoute from "./common/privateRoute";
 
-import Pantry_Dashboard from "./pantry/Dashboard";
-import ShoppingList_index from "./shoppinglist";
+import Pantry_Dashboard from "./myCorner/pantry/Dashboard";
+import ShoppingList_index from "./myCorner/shoppinglist";
 import MealPlan_index from "./mealplan";
-import Recipes_index from "./recipes";
+import Recipes_index from "./myCorner/recipes";
 
 import { Provider } from "react-redux";
 import store from "../store";
@@ -49,6 +49,11 @@ class App extends Component {
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />
                   <PrivateRoute exact path="/" component={Pantry_Dashboard} />
+                  <PrivateRoute
+                    exact
+                    path="/pantry"
+                    component={Pantry_Dashboard}
+                  />
                   <PrivateRoute
                     exact
                     path="/mealplan"
