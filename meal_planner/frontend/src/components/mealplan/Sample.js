@@ -1,45 +1,15 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Markup } from "interweave";
-import { addRecipe, getRecipe } from "../../actions/recipes";
+import { getRecipe } from "../../actions/recipes";
+import Recipe from "./recipe";
 
 export class Sample extends Component {
   static propTypes = {
     meals: PropTypes.array.isRequired,
     nutrients: PropTypes.object.isRequired,
-    addRecipe: PropTypes.func.isRequired,
     getRecipe: PropTypes.func.isRequired,
     recipes: PropTypes.array.isRequired,
-  };
-
-  saveRecipe = (e) => {
-    e.preventDefault();
-    const id = e.target.id;
-    let recipe_info = this.props.meals.find((meal) => {
-      return meal.id == id;
-    });
-
-    const {
-      title,
-      readyInMinutes,
-      servings,
-      sourceUrl,
-      image,
-      summary,
-    } = recipe_info;
-
-    const recipe = {
-      recipe_id: recipe_info.id,
-      title,
-      readyInMinutes,
-      servings,
-      sourceUrl,
-      image,
-      summary,
-    };
-
-    this.props.addRecipe(recipe);
   };
 
   componentDidMount() {
@@ -64,16 +34,6 @@ export class Sample extends Component {
       protein: "bg-info",
       fat: "bg-warning",
       carbohydrates: "bg-danger",
-    };
-
-    const isSaved = (id) => {
-      return this.props.recipes.some((meal) => meal.id == id) ? true : false;
-    };
-
-    const getText = (id) => {
-      return this.props.recipes.some((meal) => meal.id == id)
-        ? "Saved"
-        : "Save";
     };
 
     return (
@@ -102,34 +62,7 @@ export class Sample extends Component {
         <h5>Recipes</h5>
         <ul className="list-unstyled">
           {this.props.meals.map((meal) => (
-            <li className="media" key={meal.id} style={{ marginBottom: 30 }}>
-              <img
-                src={meal.image}
-                className="mr-3 img-fluid"
-                alt={meal.title}
-                style={{ maxWidth: 256, maxHeight: 256 }}
-              />
-              <div className="media-body">
-                <h5 className="mt-0 mb-1">
-                  <a href={meal.sourceUrl}>{meal.title}</a>
-                  <button
-                    type="button"
-                    onClick={this.saveRecipe}
-                    id={meal.id}
-                    className={
-                      isSaved(meal.id)
-                        ? "btn float-right btn-info"
-                        : "btn float-right btn-primary"
-                    }
-                  >
-                    {getText(meal.id)}
-                  </button>
-                </h5>
-                Ready in {meal.readyInMinutes} minutes. {meal.servings}{" "}
-                Servings.
-                <Markup content={meal.summary} />
-              </div>
-            </li>
+            <Recipe meal={meal} key={meal.id} />
           ))}
         </ul>
       </Fragment>
@@ -143,4 +76,4 @@ const mapStateToProps = (state) => ({
   recipes: state.recipes.myRecipes,
 });
 
-export default connect(mapStateToProps, { addRecipe, getRecipe })(Sample);
+export default connect(mapStateToProps, { getRecipe })(Sample);

@@ -21,7 +21,7 @@ export default function (state = initialState, action) {
     case ADD_RECIPE:
       return {
         ...state,
-        myRecipes: [...state.recipes, action.payload],
+        myRecipes: [state.recipes, action.payload],
       };
     default:
       return state;
