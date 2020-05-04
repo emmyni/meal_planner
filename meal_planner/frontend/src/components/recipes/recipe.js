@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Markup } from "interweave";
-import { addRecipe, getRecipe } from "../../actions/recipes";
+import { addRecipe, deleteRecipe } from "../../actions/recipes";
 
 export class Recipe extends Component {
   state = {
@@ -13,6 +13,7 @@ export class Recipe extends Component {
 
   static propTypes = {
     addRecipe: PropTypes.func.isRequired,
+    deleteRecipe: PropTypes.func.isRequired,
   };
 
   saveRecipe = () => {
@@ -39,11 +40,14 @@ export class Recipe extends Component {
   };
 
   deleteRecipe = () => {
-    console.log(this.props.meal.id);
+    const mealDB = this.props.recipes.find((obj) => {
+      return obj.recipe_id == this.props.meal.id;
+    });
+    this.props.deleteRecipe(mealDB.id);
   };
 
   toggleButton = (e) => {
-    this.isSaved ? this.deleteRecipe() : this.saveRecipe();
+    this.state.isSaved ? this.deleteRecipe() : this.saveRecipe();
 
     this.setState((prevState) => ({
       isSaved: !prevState.isSaved,
@@ -89,4 +93,4 @@ const mapStateToProps = (state) => ({
   recipes: state.recipes.myRecipes,
 });
 
-export default connect(mapStateToProps, { addRecipe })(Recipe);
+export default connect(mapStateToProps, { addRecipe, deleteRecipe })(Recipe);

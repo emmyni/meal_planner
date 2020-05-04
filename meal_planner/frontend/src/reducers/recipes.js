@@ -14,14 +14,14 @@ export default function (state = initialState, action) {
     case DELETE_RECIPE:
       return {
         ...state,
-        myRecipes: state.recipes.filter(
+        myRecipes: state.myRecipes.filter(
           (recipe) => recipe.id !== action.payload
         ),
       };
     case ADD_RECIPE:
       return {
         ...state,
-        myRecipes: [state.recipes, action.payload],
+        myRecipes: [...state.myRecipes, action.payload],
       };
     default:
       return state;
