@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getRecipe } from "../../actions/recipes";
-import Recipe from "../common/recipe";
+import RecipeList from "../common/recipeList";
 
 export class Sample extends Component {
   static propTypes = {
@@ -60,11 +60,7 @@ export class Sample extends Component {
           </div>
         ))}
         <h5>Recipes</h5>
-        <ul className="list-unstyled">
-          {this.props.meals.map((meal) => (
-            <Recipe meal={meal} key={meal.id} />
-          ))}
-        </ul>
+        <RecipeList recipes={this.props.meals} />
       </Fragment>
     );
   }

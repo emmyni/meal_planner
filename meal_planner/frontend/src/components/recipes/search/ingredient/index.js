@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Form from "./form";
 import RecipeList from "../../../common/recipeList";
 
-export class RandomRecipeIndex extends Component {
+export class RecipeByIngredientsIndex extends Component {
   static propTypes = {
     recipes: PropTypes.array.isRequired,
     recipesFetched: PropTypes.bool.isRequired,
@@ -27,4 +27,4 @@ const mapStateToProps = (state) => ({
   recipesFetched: state.apiRecipes.recipesFetched,
 });
 
-export default connect(mapStateToProps, {})(RandomRecipeIndex);
+export default connect(mapStateToProps, {})(RecipeByIngredientsIndex);

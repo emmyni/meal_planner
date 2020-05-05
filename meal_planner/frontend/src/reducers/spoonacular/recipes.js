@@ -1,8 +1,11 @@
-import { GET_RECIPE_RANDOM } from "../../actions/types.js";
+import {
+  GET_RECIPE_RANDOM,
+  GET_RECIPE_BY_INGREDIENTS,
+} from "../../actions/types.js";
 
 const initialState = {
-  randomRecipes: [],
-  randomRecipesFetched: false,
+  recipes: [],
+  recipesFetched: false,
 };
 
 export default function (state = initialState, action) {
@@ -10,8 +13,14 @@ export default function (state = initialState, action) {
     case GET_RECIPE_RANDOM:
       return {
         ...state,
-        randomRecipes: action.payload.recipes,
-        randomRecipesFetched: true,
+        recipes: action.payload.recipes,
+        recipesFetched: true,
+      };
+    case GET_RECIPE_BY_INGREDIENTS:
+      return {
+        ...state,
+        recipes: action.payload,
+        recipesFetched: true,
       };
     default:
       return state;
