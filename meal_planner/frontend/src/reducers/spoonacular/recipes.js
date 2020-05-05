@@ -2,6 +2,7 @@ import { GET_RECIPE_RANDOM } from "../../actions/types.js";
 
 const initialState = {
   randomRecipes: [],
+  randomRecipesFetched: false,
 };
 
 export default function (state = initialState, action) {
@@ -9,7 +10,8 @@ export default function (state = initialState, action) {
     case GET_RECIPE_RANDOM:
       return {
         ...state,
-        randomRecipes: action.payload,
+        randomRecipes: action.payload.recipes,
+        randomRecipesFetched: true,
       };
     default:
       return state;

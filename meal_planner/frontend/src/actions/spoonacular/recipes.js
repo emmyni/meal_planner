@@ -10,7 +10,6 @@ export const getRandomRecipe = (info) => (dispatch, getState) => {
       params: info,
     })
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: GET_RECIPE_RANDOM,
         payload: res.data,
