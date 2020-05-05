@@ -16,10 +16,16 @@ import Login from "./accounts/login";
 import Register from "./accounts/register";
 import PrivateRoute from "./common/privateRoute";
 
-import Pantry_Dashboard from "./myCorner/pantry/Dashboard";
-import ShoppingList_index from "./myCorner/shoppinglist";
-import MealPlan_index from "./mealplan";
-import Recipes_index from "./myCorner/recipes";
+import PantryDashboard from "./myCorner/pantry/Dashboard";
+import MyShoppingList from "./myCorner/shoppinglist";
+import MyRecipes from "./myCorner/recipes";
+import MyMealplans from "./myCorner/mealplans";
+
+import ExploreMealPlan from "./mealplan";
+import ExploreRecipes from "./recipes";
+import SearchIngredient from "./recipes/search/ingredient";
+import SearchRandom from "./recipes/search/random";
+import SearchType from "./recipes/search/type";
 
 import { Provider } from "react-redux";
 import store from "../store";
@@ -48,23 +54,35 @@ class App extends Component {
                 <Switch>
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />
-                  <PrivateRoute exact path="/" component={Pantry_Dashboard} />
+                  <Route exact path="/" component={ExploreRecipes} />
+                  <Route exact path="/mealplan" component={ExploreMealPlan} />
+                  <Route
+                    exact
+                    path="/search-by-ingredients"
+                    component={SearchIngredient}
+                  />
+                  <Route exact path="/search-random" component={SearchRandom} />
+                  <Route exact path="/search-by-type" component={SearchType} />
                   <PrivateRoute
                     exact
                     path="/pantry"
-                    component={Pantry_Dashboard}
-                  />
-                  <PrivateRoute
-                    exact
-                    path="/mealplan"
-                    component={MealPlan_index}
+                    component={PantryDashboard}
                   />
                   <PrivateRoute
                     exact
                     path="/shopping-list"
-                    component={ShoppingList_index}
+                    component={MyShoppingList}
                   />
-                  <Route exact path="/recipes" component={Recipes_index} />
+                  <PrivateRoute
+                    exact
+                    path="/my-recipes"
+                    component={MyRecipes}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/my-mealplans"
+                    component={MyMealplans}
+                  />
                 </Switch>
               </div>
             </Fragment>

@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 
-export default function shoppingList() {
+export default function Type() {
   return (
     <Fragment>
-      <h1>Shopping List</h1>
+      <h1>Search by Type</h1>
     </Fragment>
   );
 }

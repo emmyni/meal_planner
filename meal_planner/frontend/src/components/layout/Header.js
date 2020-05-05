@@ -44,7 +44,7 @@ export class Header extends Component {
       </ul>
     );
     return (
-      <nav className="navbar navbar-expand-sm navbar-light bg-light">
+      <nav className="navbar navbar-expand-sm navbar-light bg-primary">
         <div className="container">
           <button
             className="navbar-toggler"
@@ -84,16 +84,16 @@ export class Header extends Component {
                   My Corner
                 </a>
                 <div className="dropdown-menu">
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#/pantry">
                     Pantry
                   </a>
                   <a className="dropdown-item" href="#/shopping-list">
                     Shopping List
                   </a>
-                  <a className="dropdown-item" href="#/recipes">
+                  <a className="dropdown-item" href="#/my-recipes">
                     Saved Recipes
                   </a>
-                  <a className="dropdown-item" href="#/mealplan">
+                  <a className="dropdown-item" href="#/my-mealplans">
                     Saved Mealplans
                   </a>
                 </div>

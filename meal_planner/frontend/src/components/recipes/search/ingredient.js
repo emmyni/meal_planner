@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 
-export default function shoppingList() {
+export default function Ingredient() {
   return (
     <Fragment>
-      <h1>Shopping List</h1>
+      <h1>Seach by ingredients</h1>
     </Fragment>
   );
 }
