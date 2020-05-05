@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Markup } from "interweave";
-import { addRecipe, deleteRecipe } from "../../../actions/recipes";
+import { addRecipe, deleteRecipe } from "../../actions/recipes";
 
 export class Recipe extends Component {
   state = {
