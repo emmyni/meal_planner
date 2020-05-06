@@ -44,7 +44,9 @@ export class Items extends Component {
             {items.map((item) => (
               <tr key={item.id}>
                 <td>{item.name}</td>
-                <td>{item.quantity}</td>
+                <td>
+                  {item.quantity} {item.units}
+                </td>
                 <td>{item.details}</td>
                 <td>
                   <button

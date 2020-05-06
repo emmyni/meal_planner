@@ -8,12 +8,13 @@ export class Form extends Component {
   state = {
     name: "",
     quantity: 0,
+    units: "",
     details: "",
   };
 
   static propTypes = {
-    addPantry: PropTypes.func.isRequired,
     isPantry: PropTypes.bool.isRequired,
+    addPantry: PropTypes.func.isRequired,
     addShoppingList: PropTypes.func.isRequired,
   };
 
@@ -21,19 +22,20 @@ export class Form extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name, quantity, details } = this.state;
-    const item = { name, quantity, details };
+    const { name, quantity, units, details } = this.state;
+    const item = { name, quantity, units, details };
     this.props.isPantry
       ? this.props.addPantry(item)
       : this.props.addShoppingList(item);
     this.setState({
       name: "",
       quantity: 0,
+      units: "",
       details: "",
     });
   };
   render() {
-    const { name, quantity, details } = this.state;
+    const { name, quantity, units, details } = this.state;
     const title = this.props.isPantry
       ? "Add Pantry Item"
       : "Add Shopping List Item";
@@ -62,6 +64,23 @@ export class Form extends Component {
                 value={quantity}
               />
             </div>
+            <div className="col-md-1 mb-3">
+              <label>Units</label>
+              <select
+                className="custom-select mr-sm-2"
+                id="inlineFormCustomSelect"
+                name="units"
+                onChange={this.onChange}
+                value={units}
+              >
+                <option value="">None</option>
+                <option value="mg">mg</option>
+                <option value="mg">g</option>
+                <option value="mg">kg</option>
+                <option value="mg">ml</option>
+                <option value="mg">L</option>
+              </select>
+            </div>
             <div className="col-md-6 mb-3">
               <label>Details</label>
               <input
@@ -72,7 +91,7 @@ export class Form extends Component {
                 value={details}
               />
             </div>
-            <div className="col-md-2 mb-3">
+            <div className="col-md-1 mb-3">
               <label style={{ visibility: "hidden" }}>Submit</label>
               <br />
               <button type="submit" className="btn btn-primary">

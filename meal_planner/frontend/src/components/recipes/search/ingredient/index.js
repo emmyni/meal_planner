@@ -2,7 +2,7 @@ import React, { Fragment, Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Form from "./form";
-import RecipeList from "../../../common/recipeList";
+import RecipeList from "../../../common/recipes/recipeList";
 
 export class RecipeByIngredientsIndex extends Component {
   static propTypes = {
