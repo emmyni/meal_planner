@@ -5,6 +5,7 @@ import messages from "./messages";
 import auth from "./auth";
 import mealplan from "./mealplan";
 import recipes from "./recipes";
+import shoppingList from "./shoppingList";
 import apiRecipes from "./spoonacular/recipes";
 
 export default combineReducers({
@@ -15,4 +16,5 @@ export default combineReducers({
   mealplan,
   recipes,
   apiRecipes,
+  shoppingList,
 });

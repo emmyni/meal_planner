@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addPantry } from "../../../actions/pantry";
+import { addShoppingList } from "../../../actions/shoppingList";
 
 export class Form extends Component {
   state = {
@@ -12,6 +13,8 @@ export class Form extends Component {
 
   static propTypes = {
     addPantry: PropTypes.func.isRequired,
+    isPantry: PropTypes.bool.isRequired,
+    addShoppingList: PropTypes.func.isRequired,
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -20,7 +23,9 @@ export class Form extends Component {
     e.preventDefault();
     const { name, quantity, details } = this.state;
     const item = { name, quantity, details };
-    this.props.addPantry(item);
+    this.props.isPantry
+      ? this.props.addPantry(item)
+      : this.props.addShoppingList(item);
     this.setState({
       name: "",
       quantity: 0,
@@ -29,9 +34,12 @@ export class Form extends Component {
   };
   render() {
     const { name, quantity, details } = this.state;
+    const title = this.props.isPantry
+      ? "Add Pantry Item"
+      : "Add Shopping List Item";
     return (
       <div className="card card-body mt-4 mb-4">
-        <h2>Add Pantry Item</h2>
+        <h2>{title}</h2>
         <form onSubmit={this.onSubmit}>
           <div className="form-row">
             <div className="col-md-3 mb-3">
@@ -78,4 +86,4 @@ export class Form extends Component {
   }
 }
 
-export default connect(null, { addPantry })(Form);
+export default connect(null, { addPantry, addShoppingList })(Form);

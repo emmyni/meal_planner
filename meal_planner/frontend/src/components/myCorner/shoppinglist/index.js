@@ -1,10 +1,13 @@
 import React, { Fragment } from "react";
+import Form from "../../common/items/form";
+import Items from "../../common/items/list";
 
 export default function shoppingList() {
   return (
     <Fragment>
       <div className="my-4">
-        <h2>My Shopping List</h2>
+        <Form isPantry={false} />
+        <Items isPantry={false} />
       </div>
     </Fragment>
   );
