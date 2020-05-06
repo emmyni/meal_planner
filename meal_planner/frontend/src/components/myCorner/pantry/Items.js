@@ -16,7 +16,9 @@ export class Items extends Component {
   render() {
     return (
       <Fragment>
-        <h2>Pantry List</h2>
+        <div className="my-4">
+          <h2>My Pantry</h2>
+        </div>
         <table className="table table-striped">
           <thead>
             <tr>

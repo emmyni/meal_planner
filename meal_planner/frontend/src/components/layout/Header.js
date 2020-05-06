@@ -43,6 +43,7 @@ export class Header extends Component {
         </li>
       </ul>
     );
+
     return (
       <nav className="navbar navbar-expand-sm navbar-light bg-primary">
         <div className="container">
@@ -58,18 +59,20 @@ export class Header extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <span className="navbar-brand mb-0 h1">Meal Planner</span>
+            <span className="navbar-brand mb-0 h1">
+              <strong style={{ color: "white" }}>Meal Planner</strong>
+            </span>
           </div>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
                 <a className="nav-link" href="#">
-                  Recipes
+                  <strong>Recipes</strong>
                 </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#/mealplan">
-                  Mealplans
+                  <strong>Mealplans</strong>
                 </a>
               </li>
               <li className="nav-item dropdown">
@@ -81,7 +84,7 @@ export class Header extends Component {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  My Corner
+                  <strong>My Corner</strong>
                 </a>
                 <div className="dropdown-menu">
                   <a className="dropdown-item" href="#/pantry">

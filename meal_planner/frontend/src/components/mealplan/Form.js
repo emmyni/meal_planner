@@ -41,46 +41,53 @@ export class Form extends Component {
       <div className="card card-body mt-4 mb-4">
         <h2>Generate a Meal Plan</h2>
         <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Diet</label>
-            <input
-              className="form-control"
-              type="text"
-              name="diet"
-              onChange={this.onChange}
-              value={diet}
-            />
+          <div className="row">
+            <div className="col">
+              <label>Diet</label>
+              <input
+                className="form-control"
+                type="text"
+                name="diet"
+                onChange={this.onChange}
+                value={diet}
+              />
+            </div>
+            <div className="col">
+              <label>Exclude</label>
+              <input
+                className="form-control"
+                type="text"
+                name="exclude"
+                onChange={this.onChange}
+                value={exclude}
+              />
+            </div>
           </div>
-          <div className="form-group">
-            <label>Exclude</label>
-            <input
-              className="form-control"
-              type="text"
-              name="exclude"
-              onChange={this.onChange}
-              value={exclude}
-            />
+          <br />
+          <div className="row">
+            <div className="col">
+              <label>Target Calories</label>
+              <input
+                className="form-control"
+                type="number"
+                name="targetCalories"
+                onChange={this.onChange}
+                value={targetCalories}
+              />
+            </div>
+
+            <div className="col">
+              <label>Time Frame</label>
+              <input
+                className="form-control"
+                type="text"
+                name="timeFrame"
+                onChange={this.onChange}
+                value={timeFrame}
+              />
+            </div>
           </div>
-          <div className="form-group">
-            <label>Target Calories</label>
-            <input
-              className="form-control"
-              type="number"
-              name="targetCalories"
-              onChange={this.onChange}
-              value={targetCalories}
-            />
-          </div>
-          <div className="form-group">
-            <label>Time Frame</label>
-            <input
-              className="form-control"
-              type="text"
-              name="timeFrame"
-              onChange={this.onChange}
-              value={timeFrame}
-            />
-          </div>
+          <br />
           <div className="form-group">
             <button type="submit" className="btn btn-primary">
               Submit

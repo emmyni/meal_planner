@@ -17,7 +17,9 @@ export class My_Recipes extends Component {
   render() {
     return (
       <Fragment>
-        <h1>My Saved Recipes</h1>
+        <div className="my-4">
+          <h2>My Saved Recipes</h2>
+        </div>
         <RecipeList recipes={this.props.recipes} />
       </Fragment>
     );

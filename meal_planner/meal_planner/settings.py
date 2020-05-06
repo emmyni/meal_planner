@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'pantry',
     'mealplan',
     'recipes',
+    'shopping_list',
 ]
 
 REST_FRAMEWORK = {

@@ -79,7 +79,7 @@ export class Form extends Component {
                     onChange={this.onChange}
                     value={ranking}
                   >
-                    <option hidden>ranking</option>
+                    <option hidden>Priority</option>
                     <option value={1}>Maximize used ingredients</option>
                     <option value={2}>Minimize missing ingredients</option>
                   </select>
