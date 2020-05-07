@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-export default function GeneratePlan() {
+export default function SearchRecipes() {
   const button = {
     marginRight: "1vw",
   };
@@ -16,7 +16,7 @@ export default function GeneratePlan() {
           <hr className="my-4" />
           <p>Explore recipes...</p>
           <a
-            className="btn btn-warning btn-lg"
+            className="btn btn-secondary btn-lg"
             href="#/search-by-ingredients"
             role="button"
             style={button}

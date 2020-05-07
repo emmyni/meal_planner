@@ -39,6 +39,9 @@ export class Sample extends Component {
     return (
       <Fragment>
         <h2>Meal Plan</h2>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
         <h5>Nutrients:</h5>
         {Object.keys(this.props.nutrients).map((name) => (
           <div className="progress" key={name} style={{ marginBottom: "1%" }}>
