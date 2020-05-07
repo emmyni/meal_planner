@@ -1,7 +1,7 @@
-# from rest_framework import routers
-# from .api import MealplanViewSet
+from rest_framework import routers
+from .api import MealplanViewSet
 
-# router = routers.DefaultRouter()
-# router.register('api/mealplan', MealplanViewSet, 'mealplan')
+router = routers.DefaultRouter()
+router.register('api/mealplan', MealplanViewSet, 'mealplan')
 
-# urlpatterns = router.urls
+urlpatterns = router.urls
