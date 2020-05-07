@@ -30,7 +30,7 @@ export default function (state = initialState, action) {
     case GET_RECIPE_BY_TYPE:
       return {
         ...state,
-        recipes: action.payload.results,
+        recipes: action.payload.recipes,
         recipesFetched: true,
         totalRecipes: action.payload.totalResults,
       };
