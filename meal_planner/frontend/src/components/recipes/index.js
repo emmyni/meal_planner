@@ -1,9 +1,6 @@
 import React, { Fragment } from "react";
 
 export default function SearchRecipes() {
-  const button = {
-    marginRight: "1vw",
-  };
   return (
     <Fragment>
       <div className="container-full-bg">
@@ -16,26 +13,23 @@ export default function SearchRecipes() {
           <hr className="my-4" />
           <p>Explore recipes...</p>
           <a
-            className="btn btn-secondary btn-lg"
+            className="btn btn-secondary btn-lg m-2"
             href="#/search-by-ingredients"
             role="button"
-            style={button}
           >
             By Ingredients
           </a>
           <a
-            className="btn btn-success btn-lg"
+            className="btn btn-success btn-lg m-2"
             href="#/search-by-type"
             role="button"
-            style={button}
           >
             By Type
           </a>
           <a
-            className="btn btn-info btn-lg"
+            className="btn btn-info btn-lg m-2"
             href="#/search-random"
             role="button"
-            style={button}
           >
             Random
           </a>

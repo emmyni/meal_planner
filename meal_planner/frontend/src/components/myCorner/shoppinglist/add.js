@@ -30,20 +30,20 @@ export class AddShoppingList extends Component {
             >
               Manually
             </button>
-            <button
-              type="button"
+            <a
               className="btn btn-warning btn-lg m-2"
-              onClick={this.displayManual}
+              href="#/my-recipes"
+              role="button"
             >
-              By Recipe
-            </button>
-            <button
-              type="button"
+              From Recipes
+            </a>
+            <a
               className="btn btn-info btn-lg m-2"
-              onClick={this.displayManual}
+              href="#/my-mealplans"
+              role="button"
             >
-              By Mealplan
-            </button>
+              From Mealplans
+            </a>
           </div>
         </div>
         {!this.state.displayOriginal && <Form isPantry={false} />}

@@ -1,5 +1,10 @@
 .vscode
+
+meal_planner/frontend/static
+
+# environment variable/ api keys
 .env
+apikey.js
 
 ### Django ###
 *.log

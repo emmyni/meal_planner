@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { generateMealplan } from "../../actions/mealplan";
+import { SPOONACULAR_API_KEY } from "../../../../../apikey";
 
 export class Form extends Component {
   state = {
     diet: "",
     exclude: "",
     targetCalories: 2000,
-    timeFrame: "day",
   };
 
   static propTypes = {
@@ -19,24 +19,23 @@ export class Form extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { diet, exclude, targetCalories, timeFrame } = this.state;
+    const { diet, exclude, targetCalories } = this.state;
     const mealplanForm = {
       diet,
       exclude,
       targetCalories,
-      timeFrame,
-      apiKey: process.env.REACT_APP_API_KEY,
+      timeFrame: "day",
+      apiKey: SPOONACULAR_API_KEY,
     };
     this.props.generateMealplan(mealplanForm);
     this.setState({
       diet: "",
       exclude: "",
-      targetCalories: 0,
-      timeFrame: "day",
+      targetCalories: 2000,
     });
   };
   render() {
-    const { diet, exclude, targetCalories, timeFrame } = this.state;
+    const { diet, exclude, targetCalories } = this.state;
     return (
       <div className="card card-body mt-4 mb-4">
         <h2>Generate a Meal Plan</h2>
@@ -62,9 +61,6 @@ export class Form extends Component {
                 value={exclude}
               />
             </div>
-          </div>
-          <br />
-          <div className="row">
             <div className="col">
               <label>Target Calories</label>
               <input
@@ -75,23 +71,13 @@ export class Form extends Component {
                 value={targetCalories}
               />
             </div>
-
-            <div className="col">
-              <label>Time Frame</label>
-              <input
-                className="form-control"
-                type="text"
-                name="timeFrame"
-                onChange={this.onChange}
-                value={timeFrame}
-              />
+            <div className="form-group">
+              <label style={{ visibility: "hidden" }}>Submit</label>
+              <br />
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
             </div>
-          </div>
-          <br />
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
           </div>
         </form>
       </div>
