@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   myMealplans: [],
+  isMealplanSaved: false,
 };
 
 export default function (state = initialState, action) {
@@ -18,14 +19,15 @@ export default function (state = initialState, action) {
     case DELETE_MEALPLAN:
       return {
         ...state,
-        myMealplans: state.mealplans.filter(
+        myMealplans: state.myMealplans.filter(
           (plan) => plan.id !== action.payload
         ),
       };
     case ADD_MEALPLAN:
       return {
         ...state,
-        myMealplans: [...state.mealplans, action.payload],
+        myMealplans: [...state.myMealplans, action.payload],
+        isMealplanSaved: true,
       };
     default:
       return state;

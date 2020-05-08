@@ -4,18 +4,40 @@ import PropTypes from "prop-types";
 import { addMealplan } from "../../actions/mealplans";
 
 export class Modal extends Component {
+  state = {
+    name: "",
+    date: "",
+    details: "",
+  };
   static propTypes = {
     addMealplan: PropTypes.func.isRequired,
+    mealplanShort: PropTypes.object.isRequired,
   };
+
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   saveMealplan = () => {
     console.log("save");
-    this.props.addMealplan({
-        
-    });
+    const info = {
+      name: this.state.name,
+      recipe_id1: this.props.mealplanShort.meals[0].id,
+      recipe_id2: this.props.mealplanShort.meals[1].id,
+      recipe_id3: this.props.mealplanShort.meals[2].id,
+      details: this.state.details,
+      date: this.state.date,
+      calories: Math.ceil(this.props.mealplanShort.nutrients.calories),
+      protein: Math.ceil(this.props.mealplanShort.nutrients.protein),
+      fat: Math.ceil(this.props.mealplanShort.nutrients.fat),
+      carbohydrates: Math.ceil(
+        this.props.mealplanShort.nutrients.carbohydrates
+      ),
+    };
+    console.log(info);
+    this.props.addMealplan(info);
   };
 
   render() {
+    const { name, date, details } = this.state;
     return (
       <Fragment>
         <div
@@ -48,19 +70,29 @@ export class Modal extends Component {
                     <input
                       type="text"
                       className="form-control"
-                      id="recipient-name"
+                      name="name"
+                      onChange={this.onChange}
+                      value={name}
                     />
                   </div>
                   <div className="form-group">
                     <label className="col-form-label">Date:</label>
-                    <input type="date" className="form-control" id="date" />
+                    <input
+                      type="date"
+                      className="form-control"
+                      name="date"
+                      onChange={this.onChange}
+                      value={date}
+                    />
                   </div>
                   <div className="form-group">
                     <label className="col-form-label">Details:</label>
                     <textarea
                       className="form-control"
-                      id="message-text"
                       placeholder="optional"
+                      name="details"
+                      onChange={this.onChange}
+                      value={details}
                     ></textarea>
                   </div>
                 </form>
@@ -77,6 +109,7 @@ export class Modal extends Component {
                   type="button"
                   className="btn btn-primary"
                   onClick={this.saveMealplan}
+                  data-dismiss="modal"
                 >
                   Save
                 </button>
@@ -89,4 +122,8 @@ export class Modal extends Component {
   }
 }
 
-export default connect(null, {})(Modal);
+const mapStateToProps = (state) => ({
+  mealplanShort: state.apiMealplans.mealplanShort,
+});
+
+export default connect(mapStateToProps, { addMealplan })(Modal);

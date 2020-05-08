@@ -11,6 +11,7 @@ export class Sample extends Component {
     nutrients: PropTypes.object.isRequired,
     recipes: PropTypes.array.isRequired,
     getRecipe: PropTypes.func.isRequired,
+    isMealplanSaved: PropTypes.bool.isRequired,
   };
 
   componentDidMount() {
@@ -46,11 +47,17 @@ export class Sample extends Component {
                 <span>Meal Plan</span>
                 <button
                   type="button"
-                  className="btn btn-secondary float-right"
+                  className={
+                    this.props.isMealplanSaved
+                      ? "btn btn-info float-right"
+                      : "btn btn-secondary float-right"
+                  }
                   data-toggle="modal"
                   data-target="#saveModal"
                 >
-                  Save Mealplan
+                  {this.props.isMealplanSaved
+                    ? "Mealplan Saved"
+                    : "Save Mealplan"}
                 </button>
               </h2>
             </div>
@@ -88,6 +95,7 @@ const mapStateToProps = (state) => ({
   meals: state.apiMealplans.mealplanExtended,
   nutrients: state.apiMealplans.mealplanShort.nutrients,
   recipes: state.recipes.myRecipes,
+  isMealplanSaved: state.mealplans.isMealplanSaved,
 });
 
 export default connect(mapStateToProps, { getRecipe })(Sample);

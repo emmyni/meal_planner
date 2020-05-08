@@ -24,7 +24,7 @@ export const deleteMealplan = (id) => (dispatch, getState) => {
   axios
     .delete(`/api/mealplan/${id}/`, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ deleteItem: "Item Deleted" }));
+      dispatch(createMessage({ deleteItem: "Mealplan Removed" }));
       dispatch({
         type: DELETE_MEALPLAN,
         payload: id,
@@ -38,7 +38,7 @@ export const addMealplan = (item) => (dispatch, getState) => {
   axios
     .post("/api/mealplan/", item, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ addItem: "Item Added" }));
+      dispatch(createMessage({ addItem: "Mealplan Added" }));
       dispatch({
         type: ADD_MEALPLAN,
         payload: res.data,
