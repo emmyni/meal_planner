@@ -1,7 +1,7 @@
 import {
   GENERATE_MEALPLAN,
   GENERATE_MEALPLAN_EXTENDED,
-} from "../actions/types.js";
+} from "../../actions/types.js";
 
 const initialState = {
   mealplanShort: [],

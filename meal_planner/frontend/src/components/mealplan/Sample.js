@@ -3,13 +3,14 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getRecipe } from "../../actions/recipes";
 import RecipeList from "../common/recipes/recipeList";
+import Modal from "./modal";
 
 export class Sample extends Component {
   static propTypes = {
     meals: PropTypes.array.isRequired,
     nutrients: PropTypes.object.isRequired,
-    getRecipe: PropTypes.func.isRequired,
     recipes: PropTypes.array.isRequired,
+    getRecipe: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -38,10 +39,23 @@ export class Sample extends Component {
 
     return (
       <Fragment>
-        <h2>Meal Plan</h2>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
+        <div className="container">
+          <div className="row">
+            <div className="col col-12 px-0">
+              <h2>
+                <span>Meal Plan</span>
+                <button
+                  type="button"
+                  className="btn btn-secondary float-right"
+                  data-toggle="modal"
+                  data-target="#saveModal"
+                >
+                  Save Mealplan
+                </button>
+              </h2>
+            </div>
+          </div>
+        </div>
         <h5>Nutrients:</h5>
         {Object.keys(this.props.nutrients).map((name) => (
           <div className="progress" key={name} style={{ marginBottom: "1%" }}>
@@ -64,14 +78,15 @@ export class Sample extends Component {
         ))}
         <h5>Recipes</h5>
         <RecipeList recipes={this.props.meals} />
+        <Modal />
       </Fragment>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  meals: state.mealplan.mealplanExtended,
-  nutrients: state.mealplan.mealplanShort.nutrients,
+  meals: state.apiMealplans.mealplanExtended,
+  nutrients: state.apiMealplans.mealplanShort.nutrients,
   recipes: state.recipes.myRecipes,
 });
 

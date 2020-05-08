@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { generateMealplan } from "../../actions/mealplan";
-import { SPOONACULAR_API_KEY } from "../../../../../apikey";
+import { generateMealplan } from "../../actions/spoonacular/mealplans";
 
 export class Form extends Component {
   state = {
@@ -25,7 +24,6 @@ export class Form extends Component {
       exclude,
       targetCalories,
       timeFrame: "day",
-      apiKey: SPOONACULAR_API_KEY,
     };
     this.props.generateMealplan(mealplanForm);
     this.setState({

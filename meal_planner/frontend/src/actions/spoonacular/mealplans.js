@@ -1,11 +1,15 @@
 import axios from "axios";
-import { returnErrors } from "./messages";
+import { returnErrors } from "../messages";
 
-import { GENERATE_MEALPLAN } from "./types.js";
-import { GENERATE_MEALPLAN_EXTENDED } from "./types.js";
+import { GENERATE_MEALPLAN } from "../types.js";
+import { GENERATE_MEALPLAN_EXTENDED } from "../types.js";
+
+import { SPOONACULAR_API_KEY } from "../../../../../apiKey";
+const apiKey = SPOONACULAR_API_KEY;
 
 // generate mealplan based on mealplan form information
 export const generateMealplan = (mealplanForm) => (dispatch, getState) => {
+  mealplanForm.apiKey = apiKey;
   axios
     .get("https://api.spoonacular.com/mealplanner/generate", {
       params: mealplanForm,
@@ -24,7 +28,7 @@ export const generateMealplan = (mealplanForm) => (dispatch, getState) => {
         params: {
           ids: mealString,
           includeNutrition: true,
-          apiKey: mealplanForm.apiKey,
+          apiKey,
         },
       });
     })

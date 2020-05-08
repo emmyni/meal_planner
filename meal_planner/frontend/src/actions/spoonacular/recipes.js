@@ -90,8 +90,11 @@ export const getRecipeByType = (info) => (dispatch, getState) => {
             })
         );
       } else {
-        // need to make an error if not successful
-        dispatch(returnErrors("No entries found", 400));
+        dispatch(
+          createMessage({
+            noResult: "No Results Found. Try a different search",
+          })
+        );
       }
     })
     .then((res) => {

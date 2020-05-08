@@ -2,7 +2,7 @@ import React, { Fragment, Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Sample from "./Sample";
-import Form from "./Form";
+import Form from "./form";
 
 export class GenerateMealplan extends Component {
   static propTypes = {
@@ -20,7 +20,7 @@ export class GenerateMealplan extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  mealplanFetched: state.mealplan.mealplanFetched,
+  mealplanFetched: state.apiMealplans.mealplanFetched,
 });
 
 export default connect(mapStateToProps, {})(GenerateMealplan);
