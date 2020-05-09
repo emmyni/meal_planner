@@ -6,6 +6,7 @@ import {
   GET_SHOPPING_LIST,
   DELETE_SHOPPING_LIST,
   ADD_SHOPPING_LIST,
+  UPDATE_SHOPPING_LIST,
   GET_ERRORS,
 } from "./types.js";
 
@@ -52,4 +53,18 @@ export const addShoppingList = (item) => (dispatch, getState) => {
     .catch((err) =>
       dispatch(returnErrors(err.response.data, err.response.status))
     );
+};
+
+// Update SHOPPING_LIST
+export const updateShoppingList = (id, item) => (dispatch, getState) => {
+  axios
+    .patch(`/api/shopping-list/${id}/`, item, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ updateItem: "Shopping List Item Updated" }));
+      dispatch({
+        type: UPDATE_SHOPPING_LIST,
+        payload: res.data,
+      });
+    })
+    .catch(dispatch(returnErrors(err.response.data, err.response.status)));
 };

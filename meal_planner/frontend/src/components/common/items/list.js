@@ -6,8 +6,12 @@ import {
   getShoppingList,
   deleteShoppingList,
 } from "../../../actions/shoppingList";
+import UpdateModal from "./updateModal";
 
 export class Items extends Component {
+  state = {
+    current: {},
+  };
   static propTypes = {
     pantryItems: PropTypes.array,
     shoppingListItems: PropTypes.array,
@@ -18,6 +22,10 @@ export class Items extends Component {
     isPantry: PropTypes.bool.isRequired,
   };
 
+  update = (item) => {
+    this.setState({ current: item });
+  };
+
   componentDidMount() {
     this.props.isPantry ? this.props.getPantry() : this.props.getShoppingList();
   }
@@ -26,6 +34,7 @@ export class Items extends Component {
       ? this.props.pantryItems
       : this.props.shoppingListItems;
     const title = this.props.isPantry ? "My Pantry" : "My Shopping List";
+
     return (
       <Fragment>
         <div className="my-4">
@@ -34,10 +43,10 @@ export class Items extends Component {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Quantity</th>
-              <th>Details</th>
-              <th></th>
+              <th style={{ width: "25%" }}>Name</th>
+              <th style={{ width: "15%" }}>Quantity</th>
+              <th style={{ width: "35%" }}>Details</th>
+              <th style={{ width: "25%" }}></th>
             </tr>
           </thead>
           <tbody>
@@ -55,15 +64,31 @@ export class Items extends Component {
                         ? this.props.deletePantry.bind(this, item.id)
                         : this.props.deleteShoppingList.bind(this, item.id)
                     }
-                    className="btn btn-danger btn-sm"
+                    className="btn btn-danger btn-sm mx-2 float-right"
                   >
                     Delete
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-warning btn-sm float-right mx-2"
+                    onclick={this.update(item)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-warning btn-sm float-right mx-2"
+                    data-toggle="modal"
+                    data-target="#saveModal"
+                  >
+                    Update
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <UpdateModal isPantry={this.props.isPantry} />
       </Fragment>
     );
   }

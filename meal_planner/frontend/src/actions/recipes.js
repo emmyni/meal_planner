@@ -24,7 +24,7 @@ export const deleteRecipe = (id) => (dispatch, getState) => {
   axios
     .delete(`/api/recipe/${id}/`, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ recipeDeleted: "Recipe Removed" }));
+      dispatch(createMessage({ deleteItem: "Recipe Removed" }));
       dispatch({
         type: DELETE_RECIPE,
         payload: id,
@@ -38,7 +38,7 @@ export const addRecipe = (item) => (dispatch, getState) => {
   axios
     .post("/api/recipe/", item, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ recipeAdded: "Recipe Saved" }));
+      dispatch(createMessage({ addItem: "Recipe Saved" }));
       dispatch({
         type: ADD_RECIPE,
         payload: res.data,
