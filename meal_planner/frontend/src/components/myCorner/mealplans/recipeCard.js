@@ -8,18 +8,23 @@ export class RecipeCard extends Component {
   };
 
   render() {
-    recipe = this.props.recipe;
-    console.log(recipe);
     return (
       <Fragment>
         <div className="card">
-          <img src={recipe.image} className="card-img-top" alt={recipe.title} />
+          <img
+            src={this.props.recipe.image}
+            className="card-img-top"
+            alt={this.props.recipe.title}
+          />
           <div className="card-body">
-            <h5 className="card-title">{recipe.title}</h5>
-            <p className="card-text">Ready in {recipe.readyInMinutes}</p>
-            <p className="card-text">Serves {recipe.servings}</p>
+            <h5 className="card-title">
+              <a href={this.props.recipe.sourceUrl}>
+                <strong>{this.props.recipe.title}</strong>
+              </a>
+            </h5>
             <p className="card-text">
-              <small className="text-muted">Last updated 3 mins ago</small>
+              Ready in {this.props.recipe.readyInMinutes} Minutes.{" "}
+              {this.props.recipe.servings} servings.
             </p>
           </div>
         </div>

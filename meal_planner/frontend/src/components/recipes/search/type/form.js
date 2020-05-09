@@ -48,7 +48,7 @@ export class Form extends Component {
       excludeIngredients: "",
       intolerances: "",
       offset: 0,
-      number: 1,
+      number: 2,
     });
   };
   render() {

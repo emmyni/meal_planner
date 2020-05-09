@@ -123,6 +123,11 @@ export class Recipe extends Component {
               <div className="col col-8">
                 <h5 className="mt-0 mb-1">
                   <a href={meal.sourceUrl}>{meal.title}</a>
+                  {this.state.isDB && meal.inMealplan && (
+                    <span class="badge badge-pill badge-secondary mx-2">
+                      In Mealplan
+                    </span>
+                  )}
                   <button
                     type="button"
                     onClick={this.toggleButton}

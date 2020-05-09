@@ -9,15 +9,12 @@ export class MealplanList extends Component {
     myRecipes: PropTypes.array.isRequired,
   };
 
-  state;
-
   render() {
     const findRecipes = (recipe_id) => {
       return this.props.myRecipes.find((recipe) => {
         return recipe.recipe_id == recipe_id;
       });
     };
-    console.log(this.props.mealplans);
     return (
       <Fragment>
         <div>
