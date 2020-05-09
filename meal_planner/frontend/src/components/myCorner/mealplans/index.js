@@ -3,19 +3,22 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getMealplan } from "../../../actions/mealplans";
 import { getRecipe } from "../../../actions/recipes";
-import MealplanCard from "./mealplanCard";
+import MealplanList from "./mealplan";
 
 export class MealplanIndex extends Component {
   static propTypes = {
     getMealplan: PropTypes.func.isRequired,
     getRecipe: PropTypes.func.isRequired,
     mealplans: PropTypes.array.isRequired,
-    myRecipes: PropTypes.object.isRequired,
+    myRecipes: PropTypes.array.isRequired,
   };
 
   componentDidMount() {
-    this.props.getRecipe();
-    this.props.getMealplan();
+    setTimeout(() => {
+      console.log("Our data is fetched");
+      this.props.getRecipe();
+      this.props.getMealplan();
+    }, 1000);
   }
 
   render() {
@@ -23,15 +26,7 @@ export class MealplanIndex extends Component {
       <Fragment>
         <div className="my-4">
           <h2>My Saved Mealplans</h2>
-          {this.props.mealplans.map((mealplan) => (
-            <div>
-              <p>{mealplan.id}</p>
-              <MealplanCard
-                mealplan={mealplan}
-                key={mealplan.id}
-              />
-            </div>
-          ))}
+          <MealplanList />
         </div>
       </Fragment>
     );
@@ -40,7 +35,7 @@ export class MealplanIndex extends Component {
 
 const mapStateToProps = (state) => ({
   mealplans: state.mealplans.myMealplans,
-  myRecipes: state.recipes,
+  myRecipes: state.recipes.myRecipes,
 });
 
 export default connect(mapStateToProps, { getMealplan, getRecipe })(
