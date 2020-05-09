@@ -9,6 +9,7 @@ export class RecipeCard extends Component {
 
   render() {
     recipe = this.props.recipe;
+    console.log(recipe);
     return (
       <Fragment>
         <div className="card">

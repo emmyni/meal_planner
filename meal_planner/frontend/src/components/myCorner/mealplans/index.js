@@ -13,11 +13,14 @@ export class MealplanIndex extends Component {
     myRecipes: PropTypes.array.isRequired,
   };
 
+  state = {
+    loaded: false,
+  };
   componentDidMount() {
+    this.props.getRecipe();
+    this.props.getMealplan();
     setTimeout(() => {
-      console.log("Our data is fetched");
-      this.props.getRecipe();
-      this.props.getMealplan();
+      this.setState({ loaded: true });
     }, 1000);
   }
 
@@ -26,7 +29,7 @@ export class MealplanIndex extends Component {
       <Fragment>
         <div className="my-4">
           <h2>My Saved Mealplans</h2>
-          <MealplanList />
+          {this.state.loaded && <MealplanList />}
         </div>
       </Fragment>
     );
