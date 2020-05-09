@@ -2,6 +2,7 @@ import {
   GET_MEALPLAN,
   DELETE_MEALPLAN,
   ADD_MEALPLAN,
+  UPDATE_MEALPLAN,
 } from "../actions/types.js";
 
 const initialState = {
@@ -28,6 +29,13 @@ export default function (state = initialState, action) {
         ...state,
         myMealplans: [...state.myMealplans, action.payload],
         isMealplanSaved: true,
+      };
+    case UPDATE_MEALPLAN:
+      return {
+        ...state,
+        myMealplans: state.myMealplans.map((plan) =>
+          plan.id === action.payload.id ? action.payload : plan
+        ),
       };
     default:
       return state;

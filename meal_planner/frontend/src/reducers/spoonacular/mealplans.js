@@ -4,7 +4,7 @@ import {
 } from "../../actions/types.js";
 
 const initialState = {
-  mealplanShort: [],
+  mealplanShort: {},
   mealplanFetched: false,
   mealplanExtended: [],
 };

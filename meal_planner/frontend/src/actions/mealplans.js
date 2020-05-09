@@ -2,7 +2,12 @@ import axios from "axios";
 import { createMessage, returnErrors } from "./messages";
 import { tokenConfig } from "./auth";
 
-import { GET_MEALPLAN, DELETE_MEALPLAN, ADD_MEALPLAN } from "./types.js";
+import {
+  GET_MEALPLAN,
+  DELETE_MEALPLAN,
+  ADD_MEALPLAN,
+  UPDATE_MEALPLAN,
+} from "./types.js";
 
 // GET MEALPLAN
 export const getMealplan = () => (dispatch, getState) => {
@@ -47,4 +52,18 @@ export const addMealplan = (item) => (dispatch, getState) => {
     .catch((err) =>
       dispatch(returnErrors(err.response.data, err.response.status))
     );
+};
+
+// Update MEALPLAN
+export const updateMealplan = (id, item) => (dispatch, getState) => {
+  axios
+    .patch(`/api/mealplan/${id}/`, item, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ updateItem: "Mealplan Updated" }));
+      dispatch({
+        type: UPDATE_MEALPLAN,
+        payload: res.data,
+      });
+    })
+    .catch(dispatch(returnErrors(err.response.data, err.response.status)));
 };

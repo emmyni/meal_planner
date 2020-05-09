@@ -35,9 +35,13 @@ export class Form extends Component {
   render() {
     const { diet, exclude, targetCalories } = this.state;
     return (
-      <div className="container-full-bg">
+      <div className="container-full-bg my-4">
         <div className="jumbotron">
           <h2 className="display-4">Generate a Meal Plan</h2>
+          <p className="lead">
+            Planning your meals can be hard. Use the form to quickly generate a
+            mealplan for the day.
+          </p>
           <form onSubmit={this.onSubmit}>
             <div className="row">
               <div className="col-4">

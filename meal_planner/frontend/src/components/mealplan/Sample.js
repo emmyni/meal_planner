@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getRecipe } from "../../actions/recipes";
 import RecipeList from "../common/recipes/recipeList";
-import Modal from "./modal";
+import Modal from "../common/mealplan/modal";
 
 export class Sample extends Component {
   static propTypes = {
@@ -85,7 +85,7 @@ export class Sample extends Component {
         ))}
         <h5>Recipes</h5>
         <RecipeList recipes={this.props.meals} />
-        <Modal />
+        <Modal isUpdate={false} />
       </Fragment>
     );
   }

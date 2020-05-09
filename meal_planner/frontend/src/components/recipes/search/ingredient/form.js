@@ -42,7 +42,10 @@ export class Form extends Component {
         <div className="container-full-bg">
           <div className="jumbotron">
             <h1 className="display-4">Find Recipes by Ingredients</h1>
-            <p className="lead">Get some random new recipes to try!</p>
+            <p className="lead">
+              Have some ingredients on hand but don't know what to make? Search
+              to find some recipes that use your current ingredients.
+            </p>
             <form onSubmit={this.onSubmit}>
               <div className="row">
                 <div className="col">

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { deleteMealplan } from "../../../actions/mealplans";
 import { deleteRecipe } from "../../../actions/recipes";
 import RecipeCard from "./recipeCard";
+import Modal from "../../common/mealplan/modal";
 
 export class MealplanCard extends Component {
   static propTypes = {
@@ -27,14 +28,24 @@ export class MealplanCard extends Component {
         <div className="card my-4">
           <h5 className="card-header">
             <div className="d-flex">
-              <div>{this.props.mealplan.name}</div>
+              <div>
+                <strong>{this.props.mealplan.name}</strong>
+              </div>
               <div className="ml-auto">
                 <button
                   type="button"
                   onClick={this.delete}
-                  className="btn float-right btn-danger"
+                  className="btn float-right btn-danger mx-2"
                 >
                   Delete
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-warning float-right mx-2"
+                  data-toggle="modal"
+                  data-target="#saveModal"
+                >
+                  Update
                 </button>
               </div>
             </div>
@@ -42,7 +53,8 @@ export class MealplanCard extends Component {
 
           <div className="card-body">
             <h5 className="card-title">
-              {this.props.mealplan.date}: {this.props.mealplan.details}
+              <strong>{this.props.mealplan.date}</strong>:{" "}
+              {this.props.mealplan.details}
             </h5>
             <div className="card-deck">
               {recipes.map(function (recipe) {
@@ -51,6 +63,7 @@ export class MealplanCard extends Component {
             </div>
           </div>
         </div>
+        <Modal isUpdate={true} dbMealplan={this.props.mealplan} />
       </Fragment>
     );
   }

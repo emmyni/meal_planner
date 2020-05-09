@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 export default function SearchRecipes() {
   return (
     <Fragment>
-      <div className="container-full-bg">
+      <div className="container-full-bg my-5">
         <div className="jumbotron bg-light">
           <h1 className="display-4">Welcome to Meal Planner</h1>
           <p className="lead">

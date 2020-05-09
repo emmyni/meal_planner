@@ -1,20 +1,25 @@
 import React, { Fragment, Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { addMealplan } from "../../actions/mealplans";
-import { addRecipe } from "../../actions/recipes";
+import { addMealplan, updateMealplan } from "../../../actions/mealplans";
+import { addRecipe } from "../../../actions/recipes";
 
 export class Modal extends Component {
   state = {
-    name: "",
-    date: "",
-    details: "",
+    name: this.props.dbMealplan ? this.props.dbMealplan.name : "",
+    date: this.props.dbMealplan ? this.props.dbMealplan.date : "",
+    details: this.props.dbMealplan ? this.props.dbMealplan.details : "",
   };
+
   static propTypes = {
     addMealplan: PropTypes.func.isRequired,
+    updateMealplan: PropTypes.func.isRequired,
     addRecipe: PropTypes.func.isRequired,
     mealplanShort: PropTypes.object.isRequired,
     mealplanExtended: PropTypes.array.isRequired,
+    // for update
+    isUpdate: PropTypes.bool.isRequired,
+    dbMealplan: PropTypes.object,
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -62,6 +67,12 @@ export class Modal extends Component {
     });
   };
 
+  updateMealplan = () => {
+    const { name, date, details } = this.state;
+    const info = { name, date, details };
+    this.props.updateMealplan(this.props.dbMealplan.id, info);
+  };
+
   render() {
     const { name, date, details } = this.state;
     return (
@@ -78,7 +89,7 @@ export class Modal extends Component {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="saveModalLabel">
-                  Save Mealplan
+                  {this.props.isUpdate ? "Update Mealplan" : "Save Mealplan"}
                 </h5>
                 <button
                   type="button"
@@ -134,10 +145,14 @@ export class Modal extends Component {
                 <button
                   type="button"
                   className="btn btn-primary"
-                  onClick={this.saveMealplan}
+                  onClick={
+                    this.props.isUpdate
+                      ? this.updateMealplan
+                      : this.saveMealplan
+                  }
                   data-dismiss="modal"
                 >
-                  Save
+                  {this.props.isUpdate ? "Update" : "Save"}
                 </button>
               </div>
             </div>
@@ -153,4 +168,8 @@ const mapStateToProps = (state) => ({
   mealplanExtended: state.apiMealplans.mealplanExtended,
 });
 
-export default connect(mapStateToProps, { addMealplan, addRecipe })(Modal);
+export default connect(mapStateToProps, {
+  addMealplan,
+  updateMealplan,
+  addRecipe,
+})(Modal);

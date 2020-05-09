@@ -120,7 +120,10 @@ export class Form extends Component {
         <div className="container-full-bg">
           <div className="jumbotron">
             <h1 className="display-4">Search Recipes by Type</h1>
-            <p className="lead">Get some random new recipes to try!</p>
+            <p className="lead">
+              Looking for a specific type of recipe? Fill in some information to
+              find the perfect recipe!
+            </p>
             <form onSubmit={this.onSubmit}>
               <div className="row">
                 <div className="col">

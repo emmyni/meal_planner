@@ -29,6 +29,7 @@ export class Alerts extends Component {
       if (message.recipeAdded) alert.success(message.recipeAdded);
       if (message.recipeDeleted) alert.success(message.recipeDeleted);
       if (message.noResult) alert.error(message.noResult);
+      if (message.updateItem) alert.success(message.updateItem);
     }
   }
 
