@@ -2,6 +2,7 @@ import React, { Fragment, Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addMealplan } from "../../actions/mealplans";
+import { addRecipe } from "../../actions/recipes";
 
 export class Modal extends Component {
   state = {
@@ -11,13 +12,14 @@ export class Modal extends Component {
   };
   static propTypes = {
     addMealplan: PropTypes.func.isRequired,
+    addRecipe: PropTypes.func.isRequired,
     mealplanShort: PropTypes.object.isRequired,
+    mealplanExtended: PropTypes.array.isRequired,
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   saveMealplan = () => {
-    console.log("save");
     const info = {
       name: this.state.name,
       recipe_id1: this.props.mealplanShort.meals[0].id,
@@ -32,8 +34,32 @@ export class Modal extends Component {
         this.props.mealplanShort.nutrients.carbohydrates
       ),
     };
-    console.log(info);
     this.props.addMealplan(info);
+    this.saveRecipes();
+  };
+
+  saveRecipes = () => {
+    this.props.mealplanExtended.forEach((recipe) => {
+      let {
+        title,
+        readyInMinutes,
+        servings,
+        sourceUrl,
+        image,
+        summary,
+      } = recipe;
+      let recipeInfo = {
+        title,
+        readyInMinutes,
+        servings,
+        sourceUrl,
+        image,
+        summary,
+      };
+      recipeInfo.recipe_id = recipe.id;
+      recipeInfo.inMealplan = true;
+      this.props.addRecipe(recipeInfo);
+    });
   };
 
   render() {
@@ -124,6 +150,7 @@ export class Modal extends Component {
 
 const mapStateToProps = (state) => ({
   mealplanShort: state.apiMealplans.mealplanShort,
+  mealplanExtended: state.apiMealplans.mealplanExtended,
 });
 
-export default connect(mapStateToProps, { addMealplan })(Modal);
+export default connect(mapStateToProps, { addMealplan, addRecipe })(Modal);
