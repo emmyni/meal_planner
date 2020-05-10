@@ -60,11 +60,13 @@ export const updateShoppingList = (id, item) => (dispatch, getState) => {
   axios
     .patch(`/api/shopping-list/${id}/`, item, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ updateItem: "Shopping List Item Updated" }));
+      dispatch(createMessage({ updateItem: "Item Updated" }));
       dispatch({
         type: UPDATE_SHOPPING_LIST,
         payload: res.data,
       });
     })
-    .catch(dispatch(returnErrors(err.response.data, err.response.status)));
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };

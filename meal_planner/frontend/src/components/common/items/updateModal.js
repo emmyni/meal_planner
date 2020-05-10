@@ -6,16 +6,16 @@ import { updateShoppingList } from "../../../actions/shoppingList";
 
 export class Modal extends Component {
   state = {
-    name: "",
-    quantity: 0,
-    units: "",
-    details: "",
+    name: this.props.item.name,
+    quantity: this.props.item.quantity,
+    units: this.props.item.units,
+    details: this.props.item.details,
   };
 
   static propTypes = {
     updateShoppingList: PropTypes.func.isRequired,
     updatePantry: PropTypes.func.isRequired,
-    // item: PropTypes.object,
+    item: PropTypes.object.isRequired,
     isPantry: PropTypes.bool.isRequired,
   };
 

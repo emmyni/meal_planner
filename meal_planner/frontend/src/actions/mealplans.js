@@ -65,5 +65,7 @@ export const updateMealplan = (id, item) => (dispatch, getState) => {
         payload: res.data,
       });
     })
-    .catch(dispatch(returnErrors(err.response.data, err.response.status)));
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };

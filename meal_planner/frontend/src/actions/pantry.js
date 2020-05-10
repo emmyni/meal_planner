@@ -60,11 +60,13 @@ export const updatePantry = (id, item) => (dispatch, getState) => {
   axios
     .patch(`/api/pantry/${id}/`, item, tokenConfig(getState))
     .then((res) => {
-      dispatch(createMessage({ updateItem: "Pantry Item Updated" }));
+      dispatch(createMessage({ updateItem: "Item Updated" }));
       dispatch({
         type: UPDATE_PANTRY,
         payload: res.data,
       });
     })
-    .catch(dispatch(returnErrors(err.response.data, err.response.status)));
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
