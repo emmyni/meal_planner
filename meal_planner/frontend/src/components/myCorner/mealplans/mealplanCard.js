@@ -43,7 +43,7 @@ export class MealplanCard extends Component {
                   type="button"
                   className="btn btn-warning float-right mx-2"
                   data-toggle="modal"
-                  data-target="#saveModal"
+                  data-target={"#saveModal" + this.props.mealplan.id}
                 >
                   Update
                 </button>

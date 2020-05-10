@@ -79,7 +79,11 @@ export class Modal extends Component {
       <Fragment>
         <div
           className="modal fade"
-          id="saveModal"
+          id={
+            this.props.isUpdate
+              ? "saveModal" + this.props.dbMealplan.id
+              : "saveModal"
+          }
           tabIndex="-1"
           role="dialog"
           aria-labelledby="saveModalLabel"
