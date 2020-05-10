@@ -39,7 +39,7 @@ export class Form extends Component {
     const { ingredients, number, ranking } = this.state;
     return (
       <Fragment>
-        <div className="container-full-bg">
+        <div className="container-full-bg my-3">
           <div className="jumbotron">
             <h1 className="display-4">Find Recipes by Ingredients</h1>
             <p className="lead">

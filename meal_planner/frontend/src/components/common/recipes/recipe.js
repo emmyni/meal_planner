@@ -8,9 +8,9 @@ import { addShoppingList } from "../../../actions/shoppingList";
 
 export class Recipe extends Component {
   state = {
-    isSaved: this.props.recipes.some((meal) => meal.id == this.props.meal.id)
-      ? true
-      : false,
+    isSaved: this.props.meal.hasOwnProperty("recipe_id")
+      ? this.props.recipes.some((meal) => meal.id == this.props.meal.id)
+      : this.props.recipes.some((meal) => meal.recipe_id == this.props.meal.id),
     isDB: this.props.meal.hasOwnProperty("recipe_id"),
   };
 
@@ -99,6 +99,7 @@ export class Recipe extends Component {
   };
 
   render() {
+    console.log(this.state);
     const meal = this.props.meal;
     return (
       <Fragment>

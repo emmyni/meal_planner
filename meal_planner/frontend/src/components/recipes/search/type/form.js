@@ -119,7 +119,7 @@ export class Form extends Component {
     ];
     return (
       <Fragment>
-        <div className="container-full-bg">
+        <div className="container-full-bg my-3">
           <div className="jumbotron">
             <h1 className="display-4">Search Recipes by Type</h1>
             <p className="lead">

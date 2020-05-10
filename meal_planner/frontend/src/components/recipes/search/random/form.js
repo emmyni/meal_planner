@@ -33,7 +33,7 @@ export class Form extends Component {
     const { tags, number } = this.state;
     return (
       <Fragment>
-        <div className="container-full-bg">
+        <div className="container-full-bg my-3">
           <div className="jumbotron">
             <h1 className="display-4">Feeling Adventurous?</h1>
             <p className="lead">Get some random new recipes to try!</p>
