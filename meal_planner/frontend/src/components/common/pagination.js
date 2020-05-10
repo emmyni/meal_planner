@@ -4,26 +4,31 @@ import PropTypes from "prop-types";
 
 export class Pagination extends Component {
   static propTypes = {
-    offset: PropTypes.number.isRequired,
+    pageNum: PropTypes.number.isRequired,
     updatePage: PropTypes.func.isRequired,
     total: PropTypes.number.isRequired,
+    isEnd: PropTypes.bool.isRequired,
+    perPage: PropTypes.number.isRequired,
   };
   render() {
-    const numPages = Math.ceil(this.props.total / 10.0);
+    const numPages = Math.ceil(this.props.total / this.props.perPage);
     return (
       <Fragment>
         <nav aria-label="Page navigation example">
-          <ul className="pagination justify-content-end">
+          <ul
+            className={
+              this.props.isEnd
+                ? "pagination justify-content-center"
+                : "pagination justify-content-end"
+            }
+          >
             <li
               className={
-                this.props.offset === 0 ? "page-item disabled" : "page-item"
+                this.props.pageNum === 0 ? "page-item disabled" : "page-item"
               }
-              onClick={() => this.props.updatePage(this.props.offset - 1)}
+              onClick={() => this.props.updatePage(this.props.pageNum - 1)}
             >
-              <a
-                className="page-link bg-success border-success text-light"
-                tabIndex="-1"
-              >
+              <a className="page-link text-light" tabIndex="-1">
                 Previous
               </a>
             </li>
@@ -31,18 +36,18 @@ export class Pagination extends Component {
               return (
                 <li
                   className={
-                    this.props.offset === option
-                      ? "page-item active bg-info"
-                      : "page-item bg-success"
+                    this.props.pageNum === option
+                      ? "page-item active"
+                      : "page-item"
                   }
                   key={option + 1}
                   onClick={() => this.props.updatePage(option)}
                 >
                   <a
                     className={
-                      this.props.offset === option
-                        ? "page-link border-success bg-light text-muted"
-                        : "page-link border-success bg-success text-light"
+                      this.props.pageNum === option
+                        ? "page-link bg-light border-light text-muted"
+                        : "page-link text-light"
                     }
                   >
                     {option + 1}
@@ -52,15 +57,13 @@ export class Pagination extends Component {
             }, this)}
             <li
               className={
-                this.props.offset === numPages - 1
+                this.props.pageNum === numPages - 1
                   ? "page-item disabled"
                   : "page-item"
               }
-              onClick={() => this.props.updatePage(this.props.offset + 1)}
+              onClick={() => this.props.updatePage(this.props.pageNum + 1)}
             >
-              <a className="page-link bg-success border-success text-light">
-                Next
-              </a>
+              <a className="page-link text-light">Next</a>
             </li>
           </ul>
         </nav>

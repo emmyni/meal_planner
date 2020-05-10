@@ -7,17 +7,11 @@ import RecipeList from "../../common/recipes/recipeList";
 import { Pagination } from "../../common/pagination";
 
 export class My_Recipes extends Component {
-  // constructor(props) {
-  //   super(props);
-
-  //   this.updatePage = this.updatePage.bind(this);
-  // }
-
   state = {
-    offset: 0,
+    pageNum: 0,
     perPage: 10,
   };
-  
+
   static propTypes = {
     recipes: PropTypes.array.isRequired,
     getRecipe: PropTypes.func.isRequired,
@@ -25,8 +19,10 @@ export class My_Recipes extends Component {
   };
 
   updatePage = (pageNum) => {
-    console.log("child:" + pageNum);
-    this.setState({ offset: pageNum });
+    const totalPages = Math.ceil(
+      this.props.recipes.length / this.state.perPage
+    );
+    if (pageNum < totalPages && pageNum >= 0) this.setState({ pageNum: pageNum });
   };
 
   componentDidMount() {
@@ -35,25 +31,36 @@ export class My_Recipes extends Component {
   }
 
   render() {
-    console.log(this.props.recipes.length);
     return (
       <Fragment>
         <div className="my-4">
+          {this.props.recipes.length > 0 && (
+            <Pagination
+              pageNum={this.state.pageNum}
+              total={this.props.recipes.length}
+              updatePage={this.updatePage}
+              isEnd={false}
+              perPage={this.state.perPage}
+            />
+          )}
           <h2>My Saved Recipes</h2>
         </div>
-        {this.props.recipes.length > 0 && (
-          <Pagination
-            offset={this.state.offset}
-            total={this.props.recipes.length}
-            updatePage={this.updatePage}
-          />
-        )}
+
         <RecipeList
           recipes={this.props.recipes.slice(
-            this.state.offset,
-            this.state.offset + this.state.perPage
+            this.state.pageNum * this.state.perPage,
+            this.state.pageNum * this.state.perPage + this.state.perPage
           )}
         />
+        {this.props.recipes.length > 0 && (
+          <Pagination
+            pageNum={this.state.pageNum}
+            total={this.props.recipes.length}
+            updatePage={this.updatePage}
+            isEnd={true}
+            perPage={this.state.perPage}
+          />
+        )}
       </Fragment>
     );
   }

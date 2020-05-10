@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { getMealplan } from "../../../actions/mealplans";
 import { getRecipe } from "../../../actions/recipes";
 import MealplanList from "./mealplan";
+import { Pagination } from "../../common/pagination";
 
 export class MealplanIndex extends Component {
   static propTypes = {
@@ -15,21 +16,55 @@ export class MealplanIndex extends Component {
 
   state = {
     loaded: false,
+    pageNum: 0,
+    perPage: 5,
   };
+
+  updatePage = (pageNum) => {
+    const totalPages = Math.ceil(
+      this.props.mealplans.length / this.state.perPage
+    );
+    if (pageNum < totalPages && pageNum >= 0)
+      this.setState({ pageNum: pageNum });
+  };
+
   componentDidMount() {
     this.props.getRecipe();
     this.props.getMealplan();
     setTimeout(() => {
       this.setState({ loaded: true });
-    }, 1000);
+    }, 150);
   }
 
   render() {
     return (
       <Fragment>
         <div className="my-4">
+          {this.props.mealplans.length > 0 && (
+            <Pagination
+              pageNum={this.state.pageNum}
+              total={this.props.mealplans.length}
+              updatePage={this.updatePage}
+              isEnd={false}
+              perPage={this.state.perPage}
+            />
+          )}
           <h2>My Saved Mealplans</h2>
-          {this.state.loaded && <MealplanList />}
+          {this.state.loaded && (
+            <MealplanList
+              pageNum={this.state.pageNum}
+              perPage={this.state.perPage}
+            />
+          )}
+          {this.props.mealplans.length > 0 && (
+            <Pagination
+              pageNum={this.state.pageNum}
+              total={this.props.mealplans.length}
+              updatePage={this.updatePage}
+              isEnd={true}
+              perPage={this.state.perPage}
+            />
+          )}
         </div>
       </Fragment>
     );

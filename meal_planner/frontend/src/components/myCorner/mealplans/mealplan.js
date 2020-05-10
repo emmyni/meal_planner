@@ -7,6 +7,8 @@ export class MealplanList extends Component {
   static propTypes = {
     mealplans: PropTypes.array.isRequired,
     myRecipes: PropTypes.array.isRequired,
+    pageNum: PropTypes.number.isRequired,
+    perPage: PropTypes.number.isRequired,
   };
 
   render() {
@@ -18,17 +20,22 @@ export class MealplanList extends Component {
     return (
       <Fragment>
         <div>
-          {this.props.mealplans.map((mealplan) => (
-            <MealplanCard
-              mealplan={mealplan}
-              recipes={[
-                findRecipes(mealplan.recipe_id1),
-                findRecipes(mealplan.recipe_id2),
-                findRecipes(mealplan.recipe_id3),
-              ]}
-              key={mealplan.id}
-            />
-          ))}
+          {this.props.mealplans
+            .slice(
+              this.props.pageNum * this.props.perPage,
+              this.props.pageNum * this.props.perPage + this.props.perPage
+            )
+            .map((mealplan) => (
+              <MealplanCard
+                mealplan={mealplan}
+                recipes={[
+                  findRecipes(mealplan.recipe_id1),
+                  findRecipes(mealplan.recipe_id2),
+                  findRecipes(mealplan.recipe_id3),
+                ]}
+                key={mealplan.id}
+              />
+            ))}
         </div>
       </Fragment>
     );
