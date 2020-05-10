@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import Form from "../../common/items/form";
-import Items from "../../common/items/list";
+import Items from "../../common/items/itemList";
 
 export default function Dashboard() {
   return (

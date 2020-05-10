@@ -66,20 +66,13 @@ export class Form extends Component {
             </div>
             <div className="col-md-1 mb-3">
               <label>Units</label>
-              <select
-                className="custom-select mr-sm-2"
-                id="inlineFormCustomSelect"
+              <input
+                className="form-control"
+                type="text"
                 name="units"
                 onChange={this.onChange}
                 value={units}
-              >
-                <option value="">None</option>
-                <option value="mg">mg</option>
-                <option value="mg">g</option>
-                <option value="mg">kg</option>
-                <option value="mg">ml</option>
-                <option value="mg">L</option>
-              </select>
+              />
             </div>
             <div className="col-md-6 mb-3">
               <label>Details</label>

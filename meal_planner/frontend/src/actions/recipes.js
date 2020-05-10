@@ -9,6 +9,7 @@ export const getRecipe = () => (dispatch, getState) => {
   axios
     .get("/api/recipe/", tokenConfig(getState))
     .then((res) => {
+      // res.data = res.data.slice(0, 10);
       dispatch({
         type: GET_RECIPE,
         payload: res.data,
