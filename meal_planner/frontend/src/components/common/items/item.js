@@ -12,6 +12,7 @@ export class Item extends Component {
     deletePantry: PropTypes.func.isRequired,
     deleteShoppingList: PropTypes.func.isRequired,
   };
+
   render() {
     return (
       <Fragment>
@@ -25,7 +26,8 @@ export class Item extends Component {
                 type="button"
                 className="btn btn-warning btn-sm float-right mx-2"
                 data-toggle="modal"
-                data-target="#saveModal"
+                data-target={"#saveModal" + this.props.item.id}
+                ref={(input) => (this.inputElement = input)}
               >
                 Update
               </button>

@@ -4,7 +4,10 @@ import PropTypes from "prop-types";
 import { Markup } from "interweave";
 import { addRecipe, deleteRecipe } from "../../../actions/recipes";
 import { getRecipeInfo } from "../../../actions/spoonacular/recipes";
-import { addShoppingList } from "../../../actions/shoppingList";
+import {
+  addShoppingList,
+  updateShoppingList,
+} from "../../../actions/shoppingList";
 
 export class Recipe extends Component {
   state = {
@@ -19,6 +22,7 @@ export class Recipe extends Component {
     deleteRecipe: PropTypes.func.isRequired,
     getRecipeInfo: PropTypes.func.isRequired,
     addShoppingList: PropTypes.func.isRequired,
+    updateShoppingList: PropTypes.func.isRequired,
     recipes: PropTypes.array.isRequired,
     recipesExtended: PropTypes.array,
     shoppingList: PropTypes.array.isRequired,
@@ -91,6 +95,12 @@ export class Recipe extends Component {
           )
         ) {
           console.log("update");
+          const oldItem = this.props.shoppingList.find(
+            (item) =>
+              item.name === info.name ||
+              item.ingredient_id == info.ingredient_id
+          );
+          this.props.updateShoppingList(oldItem.id, info);
         }
         // create new
         else this.props.addShoppingList(info);
@@ -99,7 +109,6 @@ export class Recipe extends Component {
   };
 
   render() {
-    console.log(this.state);
     const meal = this.props.meal;
     return (
       <Fragment>
@@ -170,4 +179,5 @@ export default connect(mapStateToProps, {
   deleteRecipe,
   getRecipeInfo,
   addShoppingList,
+  updateShoppingList,
 })(Recipe);
