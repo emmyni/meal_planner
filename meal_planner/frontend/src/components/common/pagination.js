@@ -14,12 +14,12 @@ export class Pagination extends Component {
     const numPages = Math.ceil(this.props.total / this.props.perPage);
     return (
       <Fragment>
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation">
           <ul
             className={
               this.props.isEnd
-                ? "pagination justify-content-center"
-                : "pagination justify-content-end"
+                ? "pagination pagination-sm justify-content-center"
+                : "pagination pagination-sm justify-content-end"
             }
           >
             <li

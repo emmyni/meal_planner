@@ -17,14 +17,12 @@ export class MealplanList extends Component {
         return recipe.recipe_id == recipe_id;
       });
     };
+    let offset = this.props.pageNum * this.props.perPage;
     return (
       <Fragment>
         <div>
           {this.props.mealplans
-            .slice(
-              this.props.pageNum * this.props.perPage,
-              this.props.pageNum * this.props.perPage + this.props.perPage
-            )
+            .slice(offset, offset + this.props.perPage)
             .map((mealplan) => (
               <MealplanCard
                 mealplan={mealplan}

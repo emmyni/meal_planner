@@ -22,7 +22,8 @@ export class My_Recipes extends Component {
     const totalPages = Math.ceil(
       this.props.recipes.length / this.state.perPage
     );
-    if (pageNum < totalPages && pageNum >= 0) this.setState({ pageNum: pageNum });
+    if (pageNum < totalPages && pageNum >= 0)
+      this.setState({ pageNum: pageNum });
   };
 
   componentDidMount() {
@@ -31,6 +32,7 @@ export class My_Recipes extends Component {
   }
 
   render() {
+    let offset = this.state.pageNum * this.state.perPage;
     return (
       <Fragment>
         <div className="my-4">
@@ -48,8 +50,8 @@ export class My_Recipes extends Component {
 
         <RecipeList
           recipes={this.props.recipes.slice(
-            this.state.pageNum * this.state.perPage,
-            this.state.pageNum * this.state.perPage + this.state.perPage
+            offset,
+            offset + this.state.perPage
           )}
         />
         {this.props.recipes.length > 0 && (

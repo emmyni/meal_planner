@@ -11,11 +11,12 @@ export class Form extends Component {
     excludeIngredients: "",
     intolerances: "",
     offset: 0,
-    number: 2,
+    number: 10,
   };
 
   static propTypes = {
     getRecipeByType: PropTypes.func.isRequired,
+    setQuery: PropTypes.func.isRequired,
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -41,6 +42,7 @@ export class Form extends Component {
       number,
     };
     this.props.getRecipeByType(info);
+    this.props.setQuery(info);
     this.setState({
       query: "",
       cuisine: "",
@@ -48,7 +50,7 @@ export class Form extends Component {
       excludeIngredients: "",
       intolerances: "",
       offset: 0,
-      number: 2,
+      number: 10,
     });
   };
   render() {
