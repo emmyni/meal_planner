@@ -7,7 +7,9 @@ import {
 } from "../../actions/types.js";
 
 const initialState = {
-  recipes: [],
+  randomRecipes: [],
+  ingredientRecipes: [],
+  typeRecipes: [],
   recipesFetched: false,
   totalRecipes: 0,
   recipesExtended: [],
@@ -18,19 +20,19 @@ export default function (state = initialState, action) {
     case GET_RECIPE_RANDOM:
       return {
         ...state,
-        recipes: action.payload,
+        randomRecipes: action.payload,
         recipesFetched: true,
       };
     case GET_RECIPE_BY_INGREDIENTS:
       return {
         ...state,
-        recipes: action.payload,
+        ingredientRecipes: action.payload,
         recipesFetched: true,
       };
     case GET_RECIPE_BY_TYPE:
       return {
         ...state,
-        recipes: action.payload.recipes,
+        typeRecipes: action.payload.recipes,
         recipesFetched: true,
         totalRecipes: action.payload.totalResults,
       };

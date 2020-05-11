@@ -23,7 +23,7 @@ export class RandomRecipeIndex extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  recipes: state.apiRecipes.recipes,
+  recipes: state.apiRecipes.randomRecipes,
   recipesFetched: state.apiRecipes.recipesFetched,
 });
 

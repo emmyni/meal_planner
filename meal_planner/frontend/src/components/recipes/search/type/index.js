@@ -97,7 +97,7 @@ export class RecipeByTypeIndex extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  recipes: state.apiRecipes.recipes,
+  recipes: state.apiRecipes.typeRecipes,
   recipesFetched: state.apiRecipes.recipesFetched,
   totalRecipes: state.apiRecipes.totalRecipes,
 });
