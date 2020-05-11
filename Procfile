@@ -1,1 +1,1 @@
-web: python meal_plannner/manage.py runserver 0.0.0.0:5000
+web: python meal_planner/manage.py runserver 0.0.0.0:5000
