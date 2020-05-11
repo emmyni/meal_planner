@@ -136,6 +136,7 @@ export class Form extends Component {
                     name="query"
                     onChange={this.onChange}
                     value={query}
+                    placeholder="optional"
                   />
                 </div>
                 <div className="col">

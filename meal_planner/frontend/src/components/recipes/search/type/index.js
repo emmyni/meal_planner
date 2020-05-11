@@ -49,6 +49,10 @@ export class RecipeByTypeIndex extends Component {
       offset,
       number,
     } = this.state;
+    // remove white splaces
+    intolerances.trim();
+    intolerances.split(" ,").join(",");
+    intolerances.split(", ").join(",");
     let info = {
       query,
       cuisine,

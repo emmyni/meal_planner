@@ -1,5 +1,5 @@
 import axios from "axios";
-import { returnErrors } from "../messages";
+import { createMessage, returnErrors } from "../messages";
 
 import {
   GET_RECIPE_RANDOM,
@@ -20,10 +20,18 @@ export const getRandomRecipe = (info) => (dispatch, getState) => {
       params: info,
     })
     .then((res) => {
-      dispatch({
-        type: GET_RECIPE_RANDOM,
-        payload: res.data,
-      });
+      if (res.data.recipes.length > 0) {
+        dispatch({
+          type: GET_RECIPE_RANDOM,
+          payload: res.data.recipes,
+        });
+      } else {
+        dispatch(
+          createMessage({
+            noResult: "No Results Found. Try a different search",
+          })
+        );
+      }
     })
     .catch((err) =>
       dispatch(returnErrors(err.response.data, err.response.status))
@@ -41,19 +49,32 @@ export const getRecipeByIngredients = (info) => (dispatch, getState) => {
       // get more detailed recipe
       let recipeIds = res.data.map((a) => a.id);
       let recipeIdString = recipeIds.toString();
-      return axios.get("https://api.spoonacular.com/recipes/informationBulk", {
-        params: {
-          ids: recipeIdString,
-          includeNutrition: true,
-          apiKey,
-        },
-      });
+      if (res.data.length > 0) {
+        return axios.get(
+          "https://api.spoonacular.com/recipes/informationBulk",
+          {
+            params: {
+              ids: recipeIdString,
+              includeNutrition: true,
+              apiKey,
+            },
+          }
+        );
+      } else {
+        dispatch(
+          createMessage({
+            noResult: "No Results Found. Try a different search",
+          })
+        );
+      }
     })
     .then((res) => {
-      dispatch({
-        type: GET_RECIPE_BY_INGREDIENTS,
-        payload: res.data,
-      });
+      if (res) {
+        dispatch({
+          type: GET_RECIPE_BY_INGREDIENTS,
+          payload: res.data,
+        });
+      }
     })
     .catch((err) =>
       dispatch(returnErrors(err.response.data, err.response.status))

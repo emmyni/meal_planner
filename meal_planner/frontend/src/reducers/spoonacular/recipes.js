@@ -18,7 +18,7 @@ export default function (state = initialState, action) {
     case GET_RECIPE_RANDOM:
       return {
         ...state,
-        recipes: action.payload.recipes,
+        recipes: action.payload,
         recipesFetched: true,
       };
     case GET_RECIPE_BY_INGREDIENTS:

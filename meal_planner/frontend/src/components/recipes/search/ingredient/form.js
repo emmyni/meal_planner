@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getRecipeByIngredients } from "../../../../actions/spoonacular/recipes";
+import { createMessage } from "../../../../actions/messages";
 
 export class Form extends Component {
   state = {
@@ -28,7 +29,9 @@ export class Form extends Component {
       number,
       ranking,
     };
-    this.props.getRecipeByIngredients(info);
+    // verify ingredients isn't empty
+    if (ingredients != "") this.props.getRecipeByIngredients(info);
+
     this.setState({
       ingredients: "",
       number: 0,
@@ -56,6 +59,7 @@ export class Form extends Component {
                     placeholder="Ingredients"
                     onChange={this.onChange}
                     value={ingredients}
+                    required
                   />
                 </div>
                 <div className="col">

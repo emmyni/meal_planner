@@ -19,6 +19,7 @@ export class Modal extends Component {
     addRecipe: PropTypes.func.isRequired,
     mealplanShort: PropTypes.object.isRequired,
     mealplanExtended: PropTypes.array.isRequired,
+    myRecipes: PropTypes.array.isRequired,
     isAuthenticated: PropTypes.bool,
     // for update
     isUpdate: PropTypes.bool.isRequired,
@@ -43,7 +44,7 @@ export class Modal extends Component {
       ),
     };
     this.props.addMealplan(info);
-    this.saveRecipes();
+    if (name != "") this.saveRecipes();
   };
 
   saveRecipes = () => {
@@ -66,7 +67,12 @@ export class Modal extends Component {
       };
       recipeInfo.recipe_id = recipe.id;
       recipeInfo.inMealplan = true;
-      this.props.addRecipe(recipeInfo);
+      if (
+        !this.props.myRecipes.some(
+          (item) => item.recipe_id === recipeInfo.recipe_id
+        )
+      )
+        this.props.addRecipe(recipeInfo);
     });
   };
 
@@ -77,9 +83,9 @@ export class Modal extends Component {
   };
 
   clickSave = () => {
-    if (this.props.isAuthenticated)
-      this.props.isUpdate ? this.updateCurrentMealplan : this.saveMealplan;
-    else this.setState({ authReq: true });
+    if (this.props.isAuthenticated) {
+      this.props.isUpdate ? this.updateCurrentMealplan() : this.saveMealplan();
+    } else this.setState({ authReq: true });
   };
 
   render() {
@@ -177,6 +183,7 @@ const mapStateToProps = (state) => ({
   mealplanShort: state.apiMealplans.mealplanShort,
   mealplanExtended: state.apiMealplans.mealplanExtended,
   isAuthenticated: state.auth.isAuthenticated,
+  myRecipes: state.recipes.myRecipes,
 });
 
 export default connect(mapStateToProps, {
