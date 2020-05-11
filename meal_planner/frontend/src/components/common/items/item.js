@@ -19,7 +19,9 @@ export class Item extends Component {
         <li className="list-group-item">
           <div className="row">
             <div className="col-sm">{this.props.item.name}</div>
-            <div className="col-sm">{this.props.item.quantity}</div>
+            <div className="col-sm">
+              {this.props.item.quantity} {this.props.item.units}
+            </div>
             <div className="col-sm">{this.props.item.details}</div>
             <div className="col-sm">
               <button
@@ -27,7 +29,6 @@ export class Item extends Component {
                 className="btn btn-warning btn-sm float-right mx-2"
                 data-toggle="modal"
                 data-target={"#saveModal" + this.props.item.id}
-                ref={(input) => (this.inputElement = input)}
               >
                 Update
               </button>

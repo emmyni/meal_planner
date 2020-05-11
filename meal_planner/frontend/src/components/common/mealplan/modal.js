@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 import { addMealplan, updateMealplan } from "../../../actions/mealplans";
 import { addRecipe } from "../../../actions/recipes";
 
@@ -9,6 +10,7 @@ export class Modal extends Component {
     name: this.props.dbMealplan ? this.props.dbMealplan.name : "",
     date: this.props.dbMealplan ? this.props.dbMealplan.date : "",
     details: this.props.dbMealplan ? this.props.dbMealplan.details : "",
+    authReq: false,
   };
 
   static propTypes = {
@@ -17,6 +19,7 @@ export class Modal extends Component {
     addRecipe: PropTypes.func.isRequired,
     mealplanShort: PropTypes.object.isRequired,
     mealplanExtended: PropTypes.array.isRequired,
+    isAuthenticated: PropTypes.bool,
     // for update
     isUpdate: PropTypes.bool.isRequired,
     dbMealplan: PropTypes.object,
@@ -67,16 +70,23 @@ export class Modal extends Component {
     });
   };
 
-  updateMealplan = () => {
+  updateCurrentMealplan = () => {
     const { name, date, details } = this.state;
     const info = { name, date, details };
     this.props.updateMealplan(this.props.dbMealplan.id, info);
+  };
+
+  clickSave = () => {
+    if (this.props.isAuthenticated)
+      this.props.isUpdate ? this.updateCurrentMealplan : this.saveMealplan;
+    else this.setState({ authReq: true });
   };
 
   render() {
     const { name, date, details } = this.state;
     return (
       <Fragment>
+        {this.state.authReq && <Redirect to="/login" />}
         <div
           className="modal fade"
           id={
@@ -149,11 +159,7 @@ export class Modal extends Component {
                 <button
                   type="button"
                   className="btn btn-primary"
-                  onClick={
-                    this.props.isUpdate
-                      ? this.updateMealplan
-                      : this.saveMealplan
-                  }
+                  onClick={this.clickSave}
                   data-dismiss="modal"
                 >
                   {this.props.isUpdate ? "Update" : "Save"}
@@ -170,6 +176,7 @@ export class Modal extends Component {
 const mapStateToProps = (state) => ({
   mealplanShort: state.apiMealplans.mealplanShort,
   mealplanExtended: state.apiMealplans.mealplanExtended,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, {

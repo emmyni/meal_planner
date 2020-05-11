@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 import { Markup } from "interweave";
 import { addRecipe, deleteRecipe } from "../../../actions/recipes";
 import { getRecipeInfo } from "../../../actions/spoonacular/recipes";
@@ -15,6 +16,7 @@ export class Recipe extends Component {
       ? this.props.recipes.some((meal) => meal.id == this.props.meal.id)
       : this.props.recipes.some((meal) => meal.recipe_id == this.props.meal.id),
     isDB: this.props.meal.hasOwnProperty("recipe_id"),
+    authReq: false,
   };
 
   static propTypes = {
@@ -23,6 +25,7 @@ export class Recipe extends Component {
     getRecipeInfo: PropTypes.func.isRequired,
     addShoppingList: PropTypes.func.isRequired,
     updateShoppingList: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
     recipes: PropTypes.array.isRequired,
     recipesExtended: PropTypes.array,
     shoppingList: PropTypes.array.isRequired,
@@ -63,11 +66,14 @@ export class Recipe extends Component {
   };
 
   toggleButton = (e) => {
-    this.state.isSaved ? this.deleteRecipe() : this.saveRecipe();
-
-    this.setState((prevState) => ({
-      isSaved: !prevState.isSaved,
-    }));
+    if (this.props.isAuthenticated) {
+      this.state.isSaved ? this.deleteRecipe() : this.saveRecipe();
+      this.setState((prevState) => ({
+        isSaved: !prevState.isSaved,
+      }));
+    } else {
+      this.setState({ authReq: true });
+    }
   };
 
   addIngredients = () => {
@@ -94,7 +100,6 @@ export class Recipe extends Component {
               item.ingredient_id == info.ingredient_id
           )
         ) {
-          console.log("update");
           const oldItem = this.props.shoppingList.find(
             (item) =>
               item.name === info.name ||
@@ -112,6 +117,7 @@ export class Recipe extends Component {
     const meal = this.props.meal;
     return (
       <Fragment>
+        {this.state.authReq && <Redirect to="/login" />}
         <li style={{ marginBottom: 30 }}>
           <div className="container">
             <div className="row">
@@ -172,6 +178,7 @@ const mapStateToProps = (state) => ({
   recipes: state.recipes.myRecipes,
   recipesExtended: state.apiRecipes.recipesExtended,
   shoppingList: state.shoppingList.items,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, {

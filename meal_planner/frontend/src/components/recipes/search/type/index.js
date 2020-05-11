@@ -62,10 +62,11 @@ export class RecipeByTypeIndex extends Component {
   };
 
   render() {
+    let totalPages = Math.ceil(this.props.recipes.length / this.state.number);
     return (
       <Fragment>
         <Form setQuery={this.setQuery} />
-        {this.props.recipes.length > 0 && (
+        {this.props.recipes.length > 0 && totalPages > 1 && (
           <Pagination
             pageNum={this.state.pageNum}
             total={this.props.totalRecipes}
@@ -77,7 +78,7 @@ export class RecipeByTypeIndex extends Component {
         {this.props.recipesFetched && (
           <RecipeList recipes={this.props.recipes} />
         )}
-        {this.props.recipes.length > 0 && (
+        {this.props.recipes.length > 0 && totalPages > 1 && (
           <Pagination
             pageNum={this.state.pageNum}
             total={this.props.totalRecipes}

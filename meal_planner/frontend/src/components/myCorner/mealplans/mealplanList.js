@@ -18,6 +18,7 @@ export class MealplanList extends Component {
       });
     };
     let offset = this.props.pageNum * this.props.perPage;
+
     return (
       <Fragment>
         <div>

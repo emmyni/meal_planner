@@ -4,11 +4,14 @@ import PropTypes from "prop-types";
 import { getPantry } from "../../../actions/pantry";
 import { getShoppingList } from "../../../actions/shoppingList";
 import Item from "./item";
+import Pagination from "../pagination";
 
 export class Items extends Component {
   state = {
     current: {},
     showModal: false,
+    pageNum: 0,
+    perPage: 10,
   };
   static propTypes = {
     pantryItems: PropTypes.array,
@@ -22,15 +25,35 @@ export class Items extends Component {
     this.props.isPantry ? this.props.getPantry() : this.props.getShoppingList();
   }
 
+  updatePage = (pageNum) => {
+    let items = this.props.isPantry
+      ? this.props.pantryItems
+      : this.props.shoppingListItems;
+    const totalPages = Math.ceil(items.length / this.state.perPage);
+    if (pageNum < totalPages && pageNum >= 0)
+      this.setState({ pageNum: pageNum });
+  };
+
   render() {
     const items = this.props.isPantry
       ? this.props.pantryItems
       : this.props.shoppingListItems;
+    let offset = this.state.perPage * this.state.pageNum;
+    let totalPages = Math.ceil(items.length / this.state.perPage);
     const title = this.props.isPantry ? "My Pantry" : "My Shopping List";
 
     return (
       <Fragment>
         <div className="my-4">
+          {items.length > 0 && totalPages > 1 && (
+            <Pagination
+              pageNum={this.state.pageNum}
+              total={items.length}
+              updatePage={this.updatePage}
+              isEnd={false}
+              perPage={this.state.perPage}
+            />
+          )}
           <h2>{title}</h2>
         </div>
         <div className="container">
@@ -46,7 +69,7 @@ export class Items extends Component {
           </div>
           <div className="card">
             <ul className="list-group list-group-flush">
-              {items.map((item) => (
+              {items.slice(offset, offset + this.state.perPage).map((item) => (
                 <Item
                   item={item}
                   isPantry={this.props.isPantry}
@@ -55,6 +78,15 @@ export class Items extends Component {
               ))}
             </ul>
           </div>
+          {items.length > 0 && totalPages > 1 && (
+            <Pagination
+              pageNum={this.state.pageNum}
+              total={items.length}
+              updatePage={this.updatePage}
+              isEnd={true}
+              perPage={this.state.perPage}
+            />
+          )}
         </div>
       </Fragment>
     );

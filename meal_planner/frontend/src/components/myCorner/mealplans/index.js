@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getMealplan } from "../../../actions/mealplans";
 import { getRecipe } from "../../../actions/recipes";
-import MealplanList from "./mealplan";
+import MealplanList from "./mealplanList";
 import { Pagination } from "../../common/pagination";
 
 export class MealplanIndex extends Component {
@@ -37,10 +37,12 @@ export class MealplanIndex extends Component {
   }
 
   render() {
+    let totalPages = Math.ceil(this.props.mealplans.length / this.state.number);
+
     return (
       <Fragment>
         <div className="my-4">
-          {this.props.mealplans.length > 0 && (
+          {this.props.mealplans.length > 0 && totalPages > 1 && (
             <Pagination
               pageNum={this.state.pageNum}
               total={this.props.mealplans.length}
@@ -56,7 +58,7 @@ export class MealplanIndex extends Component {
               perPage={this.state.perPage}
             />
           )}
-          {this.props.mealplans.length > 0 && (
+          {this.props.mealplans.length > 0 && totalPages > 1 && (
             <Pagination
               pageNum={this.state.pageNum}
               total={this.props.mealplans.length}

@@ -33,10 +33,12 @@ export class My_Recipes extends Component {
 
   render() {
     let offset = this.state.pageNum * this.state.perPage;
+    let totalPages = Math.ceil(this.props.recipes.length / this.state.number);
+
     return (
       <Fragment>
         <div className="my-4">
-          {this.props.recipes.length > 0 && (
+          {this.props.recipes.length > 0 && totalPages > 1 && (
             <Pagination
               pageNum={this.state.pageNum}
               total={this.props.recipes.length}
@@ -54,7 +56,7 @@ export class My_Recipes extends Component {
             offset + this.state.perPage
           )}
         />
-        {this.props.recipes.length > 0 && (
+        {this.props.recipes.length > 0 && totalPages > 1 && (
           <Pagination
             pageNum={this.state.pageNum}
             total={this.props.recipes.length}

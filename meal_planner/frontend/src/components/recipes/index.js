@@ -6,10 +6,11 @@ import { getRecipe } from "../../actions/recipes";
 export class SearchRecipes extends Component {
   static propTypes = {
     getRecipe: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
   };
 
   componentDidMount() {
-    this.props.getRecipe();
+    if (this.props.isAuthenticated) this.props.getRecipe();
   }
 
   render() {
@@ -54,6 +55,7 @@ export class SearchRecipes extends Component {
 
 const mapStateToProps = (state) => ({
   myRecipes: state.recipes.myRecipes,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { getRecipe })(SearchRecipes);

@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { addPantry } from "../../../actions/pantry";
-import { addShoppingList } from "../../../actions/shoppingList";
+import { addPantry, updatePantry } from "../../../actions/pantry";
+import {
+  addShoppingList,
+  updateShoppingList,
+} from "../../../actions/shoppingList";
 
 export class Form extends Component {
   state = {
@@ -16,6 +19,8 @@ export class Form extends Component {
     isPantry: PropTypes.bool.isRequired,
     addPantry: PropTypes.func.isRequired,
     addShoppingList: PropTypes.func.isRequired,
+    pantryItems: PropTypes.array.isRequired,
+    shoppingListItems: PropTypes.array.isRequired,
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -24,9 +29,23 @@ export class Form extends Component {
     e.preventDefault();
     const { name, quantity, units, details } = this.state;
     const item = { name, quantity, units, details };
-    this.props.isPantry
-      ? this.props.addPantry(item)
-      : this.props.addShoppingList(item);
+
+    if (this.props.isPantry) {
+      this.props.pantryItems.some((item) => item.name === name)
+        ? this.props.updatePantry(
+            this.props.pantryItems.find((item) => item.name === name).id,
+            item
+          )
+        : this.props.addPantry(item);
+    } else {
+      this.props.shoppingListItems.some((item) => item.name === name)
+        ? this.props.updateShoppingList(
+            this.props.shoppingListItems.find((item) => item.name === name).id,
+            item
+          )
+        : this.props.addShoppingList(item);
+    }
+
     this.setState({
       name: "",
       quantity: 0,
@@ -98,4 +117,14 @@ export class Form extends Component {
   }
 }
 
-export default connect(null, { addPantry, addShoppingList })(Form);
+const mapStateToProps = (state) => ({
+  pantryItems: state.pantry.items,
+  shoppingListItems: state.shoppingList.items,
+});
+
+export default connect(mapStateToProps, {
+  addPantry,
+  updatePantry,
+  addShoppingList,
+  updateShoppingList,
+})(Form);
