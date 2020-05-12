@@ -12,8 +12,8 @@ import AlertTemplate from "react-alert-template-basic";
 
 import Header from "./layout/Header";
 import Alerts from "./layout/Alerts";
-import Login from "./accounts/login";
-import Register from "./accounts/register";
+import Login from "./accounts/Login";
+import Register from "./accounts/Register";
 import PrivateRoute from "./common/privateRoute";
 
 import PantryDashboard from "./myCorner/pantry/Dashboard";
