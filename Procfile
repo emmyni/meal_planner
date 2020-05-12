@@ -1,2 +1,2 @@
 release: python meal_planner/manage.py migrate
-web: waitress-serve --listen=*:8000 meal_planner.wsgi:application
+web: python manage.py runserver 0.0.0.0:5000
