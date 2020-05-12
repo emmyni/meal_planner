@@ -3,10 +3,13 @@ certifi==2020.4.5.1
 cffi==1.14.0
 chardet==3.0.4
 cryptography==2.9.2
+dj-database-url==0.5.0
 Django==3.0.5
+django-heroku==0.3.1
 django-rest-knox==4.1.0
 djangorestframework==3.11.0
 idna==2.9
+psycopg2==2.8.5
 pycparser==2.20
 python-dateutil==2.8.1
 pytz==2020.1
@@ -16,3 +19,4 @@ spoonacular==3.0
 sqlparse==0.3.1
 urllib3==1.25.9
 waitress==1.4.3
+whitenoise==5.0.1
