@@ -10,15 +10,15 @@ export class Register extends Component {
     username: "",
     email: "",
     password: "",
-    password2: ""
+    password2: "",
   };
 
   static propTypes = {
     register: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
   };
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     const { username, email, password, password2 } = this.state;
     if (password != password2) {
@@ -27,15 +27,15 @@ export class Register extends Component {
       const newUser = {
         username,
         password,
-        email
+        email,
       };
       this.props.register(newUser);
     }
   };
 
-  onChange = e =>
+  onChange = (e) =>
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
 
   render() {
@@ -103,8 +103,8 @@ export class Register extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { register, createMessage })(Register);
