@@ -1,2 +1,2 @@
 release: python meal_planner/manage.py migrate
-web: python manage.py runserver
+web: python meal_planner/manage.py runserver
