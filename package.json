@@ -48,6 +48,7 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "spoonacular_api": "^1.0.0"
+    "spoonacular_api": "^1.0.0",
+    "whitenoise": "0.0.1"
   }
 }
