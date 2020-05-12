@@ -13,6 +13,7 @@ djangorestframework = "*"
 django-rest-knox = "*"
 requests = "*"
 gunicorn = "*"
+npm = "*"
 
 [requires]
 python_version = "3.8"
