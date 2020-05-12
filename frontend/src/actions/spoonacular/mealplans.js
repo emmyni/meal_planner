@@ -4,8 +4,7 @@ import { returnErrors } from "../messages";
 import { GENERATE_MEALPLAN } from "../types.js";
 import { GENERATE_MEALPLAN_EXTENDED } from "../types.js";
 
-import { SPOONACULAR_API_KEY } from "../../../../../apiKey";
-const apiKey = SPOONACULAR_API_KEY;
+const apiKey = "522849782e3d45af9d6f0734cde16125";
 
 // generate mealplan based on mealplan form information
 export const generateMealplan = (mealplanForm) => (dispatch, getState) => {

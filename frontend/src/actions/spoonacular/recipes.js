@@ -9,8 +9,7 @@ import {
   GET_RECIPE_INFO_BULK,
 } from "../types.js";
 
-import { SPOONACULAR_API_KEY } from "../../../../../apiKey";
-const apiKey = SPOONACULAR_API_KEY;
+const apiKey = "522849782e3d45af9d6f0734cde16125";
 
 // get a random recipe
 export const getRandomRecipe = (info) => (dispatch, getState) => {

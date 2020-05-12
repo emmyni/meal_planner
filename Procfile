@@ -1,2 +1,2 @@
-release: python meal_planner/manage.py migrate
+release: python manage.py migrate
 web: gunicorn meal_planner.wsgi
