@@ -6,6 +6,7 @@ import { deleteRecipe } from "../../../actions/recipes";
 import {
   addShoppingList,
   updateShoppingList,
+  deleteShoppingList,
 } from "../../../actions/shoppingList";
 import { getRecipeInfoBulk } from "../../../actions/spoonacular/recipes";
 import RecipeCard from "./recipeCard";
@@ -17,6 +18,7 @@ export class MealplanCard extends Component {
     deleteRecipe: PropTypes.func.isRequired,
     addShoppingList: PropTypes.func.isRequired,
     updateShoppingList: PropTypes.func.isRequired,
+    deleteShoppingList: PropTypes.func.isRequired,
     getRecipeInfoBulk: PropTypes.func.isRequired,
     mealplan: PropTypes.object.isRequired,
     recipes: PropTypes.array.isRequired,
@@ -27,6 +29,7 @@ export class MealplanCard extends Component {
   state = {
     ingredients_added: false,
   };
+
   delete = () => {
     this.props.deleteMealplan(this.props.mealplan.id);
     this.props.recipes.forEach((recipe) => {
@@ -79,6 +82,32 @@ export class MealplanCard extends Component {
     }, 2000);
   };
 
+  removeIngredients = () => {
+    // 3 recipes
+    for (let i = 0; i < 3; i++) {
+      const ingredients = this.props.recipesExtended[i].extendedIngredients;
+      ingredients.forEach((ingredient) => {
+        // delete if existing
+        if (
+          this.props.shoppingList.some(
+            (item) =>
+              item.name === ingredient.name ||
+              item.ingredient_id == ingredient.ingredient_id
+          )
+        ) {
+          const oldItem = this.props.shoppingList.find(
+            (item) =>
+              item.name === ingredient.name ||
+              item.ingredient_id == ingredient.ingredient_id
+          );
+          this.props.deleteShoppingList(oldItem.id);
+        }
+      });
+    }
+
+    this.setState({ ingredients_added: false });
+  };
+
   render() {
     const recipes = this.props.recipes;
     return (
@@ -115,7 +144,11 @@ export class MealplanCard extends Component {
               {this.props.mealplan.details}
               <button
                 type="button"
-                onClick={this.addIngredients}
+                onClick={
+                  this.state.ingredients_added
+                    ? this.removeIngredients
+                    : this.addIngredients
+                }
                 className={
                   "btn btn-sm float-right mx-2 " +
                   (this.state.ingredients_added ? "btn-info" : "btn-primary")
@@ -149,5 +182,6 @@ export default connect(mapStateToProps, {
   deleteRecipe,
   addShoppingList,
   updateShoppingList,
+  deleteShoppingList,
   getRecipeInfoBulk,
 })(MealplanCard);
