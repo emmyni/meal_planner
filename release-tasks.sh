@@ -1,3 +1,3 @@
 python manage.py migrate
-npm install --dev
+npm install --only=dev
 npm run build
