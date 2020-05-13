@@ -18,7 +18,7 @@ export class SearchRecipes extends Component {
       <Fragment>
         <div className="container-full-bg my-5">
           <div className="jumbotron bg-light">
-            <h1 className="display-4">Welcome to Meal Planner</h1>
+            <h1 className="display-4">Welcome to Spoonalicious</h1>
             <p className="lead">
               Start exploring a variety of new and interesting recipes and
               generate your own meal plan.

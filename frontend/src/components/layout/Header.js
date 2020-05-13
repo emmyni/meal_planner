@@ -60,7 +60,7 @@ export class Header extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <span className="navbar-brand mb-0 h1">
-              <strong style={{ color: "white" }}>Meal Planner</strong>
+              <strong style={{ color: "white" }}>Spoonalicious</strong>
             </span>
           </div>
           <div className="collapse navbar-collapse" id="navbarNav">

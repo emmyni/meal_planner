@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getMealplan } from "../../../actions/mealplans";
 import { getRecipe } from "../../../actions/recipes";
+import { getShoppingList } from "../../../actions/shoppingList";
 import MealplanList from "./mealplanList";
 import { Pagination } from "../../common/pagination";
 
@@ -31,6 +32,7 @@ export class MealplanIndex extends Component {
   componentDidMount() {
     this.props.getRecipe();
     this.props.getMealplan();
+    this.props.getShoppingList();
     setTimeout(() => {
       this.setState({ loaded: true });
     }, 150);
@@ -78,6 +80,8 @@ const mapStateToProps = (state) => ({
   myRecipes: state.recipes.myRecipes,
 });
 
-export default connect(mapStateToProps, { getMealplan, getRecipe })(
-  MealplanIndex
-);
+export default connect(mapStateToProps, {
+  getMealplan,
+  getRecipe,
+  getShoppingList,
+})(MealplanIndex);

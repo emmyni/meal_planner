@@ -1,5 +1,5 @@
 .vscode
-./frontend/static/frontend/main.js
+frontend/static/frontend/main.js
 
 # environment variable/ api keys
 .env
