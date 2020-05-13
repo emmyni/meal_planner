@@ -44,7 +44,7 @@ export class Modal extends Component {
       ),
     };
     this.props.addMealplan(info);
-    if (name != "") this.saveRecipes();
+    if (info.name != "") this.saveRecipes();
   };
 
   saveRecipes = () => {
