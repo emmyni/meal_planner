@@ -8,6 +8,7 @@ import { getRecipeInfo } from "../../../actions/spoonacular/recipes";
 import {
   addShoppingList,
   updateShoppingList,
+  deleteShoppingList,
 } from "../../../actions/shoppingList";
 
 export class Recipe extends Component {
@@ -17,6 +18,7 @@ export class Recipe extends Component {
       : this.props.recipes.some((meal) => meal.recipe_id == this.props.meal.id),
     isDB: this.props.meal.hasOwnProperty("recipe_id"),
     authReq: false,
+    ingredients_added: false,
   };
 
   static propTypes = {
@@ -25,6 +27,7 @@ export class Recipe extends Component {
     getRecipeInfo: PropTypes.func.isRequired,
     addShoppingList: PropTypes.func.isRequired,
     updateShoppingList: PropTypes.func.isRequired,
+    deleteShoppingList: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
     recipes: PropTypes.array.isRequired,
     recipesExtended: PropTypes.array,
@@ -65,7 +68,7 @@ export class Recipe extends Component {
     }
   };
 
-  toggleButton = (e) => {
+  toggleSaveButton = (e) => {
     if (this.props.isAuthenticated) {
       this.state.isSaved ? this.deleteRecipe() : this.saveRecipe();
       this.setState((prevState) => ({
@@ -84,33 +87,70 @@ export class Recipe extends Component {
     // find a better solution to setTimeout
     setTimeout(() => {
       const ingredients = this.props.recipesExtended[0].extendedIngredients;
-      ingredients.forEach((item) => {
+      ingredients.forEach((ingredient) => {
         const info = {
-          ingredient_id: item.id,
-          name: item.name,
-          quantity: Math.ceil(item.amount),
-          units: item.unit,
-          details: item.meta.join(),
+          ingredient_id: ingredient.id,
+          name: ingredient.name,
+          quantity: Math.ceil(ingredient.amount),
+          units: ingredient.unit,
+          details: ingredient.meta.join(),
         };
+
+        let ingredient_id = this.props.isDB
+          ? ingredient.ingredient_id
+          : ingredient.id;
+
         // update existing
         if (
           this.props.shoppingList.some(
             (item) =>
-              item.name === info.name ||
-              item.ingredient_id == info.ingredient_id
+              item.name === ingredient.name ||
+              item.ingredient_id == ingredient_id
           )
         ) {
           const oldItem = this.props.shoppingList.find(
             (item) =>
-              item.name === info.name ||
-              item.ingredient_id == info.ingredient_id
+              item.name === ingredient.name ||
+              item.ingredient_id == ingredient_id
           );
           this.props.updateShoppingList(oldItem.id, info);
         }
         // create new
         else this.props.addShoppingList(info);
       });
-    }, 500);
+      this.setState({ ingredients_added: true });
+    }, 1000);
+  };
+
+  removeIngredients = () => {
+    const ingredients = this.props.recipesExtended[0].extendedIngredients;
+    ingredients.forEach((ingredient) => {
+      // delete if existing
+      if (
+        this.props.shoppingList.some(
+          (item) =>
+            item.name === ingredient.name ||
+            item.ingredient_id == ingredient.ingredient_id
+        )
+      ) {
+        const oldItem = this.props.shoppingList.find(
+          (item) =>
+            item.name === ingredient.name ||
+            item.ingredient_id == ingredient.ingredient_id
+        );
+        this.props.deleteShoppingList(oldItem.id);
+      }
+    });
+
+    this.setState({ ingredients_added: false });
+  };
+
+  toggleIngredientsButton = (e) => {
+    if (this.props.isAuthenticated)
+      this.state.ingredients_added
+        ? this.removeIngredients()
+        : this.addIngredients();
+    else this.setState({ authReq: true });
   };
 
   render() {
@@ -130,10 +170,15 @@ export class Recipe extends Component {
                 />
                 <button
                   type="button"
-                  className="btn btn-primary btn-sm m-2"
-                  onClick={this.addIngredients}
+                  className={
+                    "btn btn-sm m-2 " +
+                    (this.state.ingredients_added ? "btn-info" : "btn-primary")
+                  }
+                  onClick={this.toggleIngredientsButton}
                 >
-                  Add Ingredients to Shopping List
+                  {this.state.ingredients_added
+                    ? "Ingredients Added"
+                    : "Add Ingredients to Shopping List"}
                 </button>
               </div>
               <div className="col col-8">
@@ -146,7 +191,7 @@ export class Recipe extends Component {
                   )}
                   <button
                     type="button"
-                    onClick={this.toggleButton}
+                    onClick={this.toggleSaveButton}
                     className={
                       this.state.isSaved
                         ? this.state.isDB
@@ -187,4 +232,5 @@ export default connect(mapStateToProps, {
   getRecipeInfo,
   addShoppingList,
   updateShoppingList,
+  deleteShoppingList,
 })(Recipe);
