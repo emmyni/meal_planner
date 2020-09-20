@@ -1,5 +1,6 @@
 .vscode
 frontend/static/frontend/main.js
+Pipfile.lock
 
 # environment variable/ api keys
 .env
